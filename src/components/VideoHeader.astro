@@ -1,0 +1,17 @@
+---
+const { pd } = Astro.props;
+const videoUrl = `${import.meta.env.STRAPI_URL}${pd.video.url}`;
+---
+
+<div class="video-header" id="testata">
+    <div class="d-flex justify-content-center align-items-center" id="video-testata">
+        <video autoplay loop muted playsinline>
+            <source src={videoUrl} type="video/mp4" />
+        </video>
+        <div class="d-flex flex-column justify-content-center align-items-center" id="contenuto-testata">
+            <h1>{pd.titolo}</h1>
+            <p>{pd.descrizione}</p>
+            <a href={pd.pulsante.url} title={pd.pulsante.titolo} class="btn btn-primary">{pd.pulsante.etichetta}</a>
+        </div>
+    </div>
+</div>

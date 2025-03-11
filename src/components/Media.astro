@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+const { pd } = Astro.props;
+const photoUrl = `${import.meta.env.STRAPI_URL}${pd.file.url}`;
+
+//console.log(pd);
+---
+
+<div class="video-header" id="testata">
+    <div class="d-flex justify-content-center align-items-center" id="video-testata">
+        <Image class="w-50 h-auto" id="media1" src={photoUrl} alt={pd.file.alternativeText} width={pd.file.width} height={pd.file.height}/>
+    </div>
+</div>
