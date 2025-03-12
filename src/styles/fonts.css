@@ -74,14 +74,14 @@
   
   @font-face {
     font-family: 'Poppins';
-    src: url('/fonts/poppins/Poppins-Semibold.ttf') format('truetype');
+    src: url('/fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
   }
   
   @font-face {
     font-family: 'Poppins';
-    src: url('/fonts/poppins/Poppins-SemiboldItalic.ttf') format('truetype');
+    src: url('/fonts/poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
     font-weight: 600;
     font-style: italic;
   }
