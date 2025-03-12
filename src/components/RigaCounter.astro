@@ -5,27 +5,96 @@ interface Counter {
 }
 
 let rand = 0;
-
 const { pd } = Astro.props;
 ---
 
-<script type="module" src="https://cdn.jsdelivr.net/gh/lekoala/formidable-elements@master/dist/count-up.min.js"></script>
-
 <div class="row h-50 d-flex justify-content-center align-items-center">
-    {
-        pd.counter.map((counter: Counter, index: number) => (
-            rand = Math.floor(Math.random() * 4) + 2,
-            <div class="col-4 text-center">
-                <h2 class="fs-1">
-                    +<count-up 
-                        id={`counter-${index}`} 
-                        data-start="false" 
-                        data-format="false" 
-                        data-duration={rand}
-                    >{counter.numero}</count-up>
-                </h2>
-                <p>{counter.titolo}</p>
-            </div>
-        ))
-    }
+    {pd.counter.map((counter: Counter, index: number) => (
+        rand = Math.floor(Math.random() * 3) + 1,
+        <div class="col-4 text-center">
+            <h2 class="fs-1">
+                +<span 
+                    id={`counter-${index}`} 
+                    class="count-up"
+                    data-target={counter.numero} 
+                    data-duration={rand * 1000}
+                >0</span>
+            </h2>
+            <p>{counter.titolo}</p>
+        </div>
+    ))}
 </div>
+
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll(".count-up");
+
+        // IntersectionObserver: attiva il contatore solo quando entra nel viewport
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    
+                    // Controlla se l'animazione è già partita
+                    if (!counter.classList.contains("started")) {
+                        counter.classList.add("started"); // Evita di rianimare più volte
+                        
+                        const target = parseInt(counter.getAttribute("data-target") || "0");
+                        const duration = parseInt(counter.getAttribute("data-duration") || "2000");
+                        
+                        // Ritardo casuale tra 0.5s e 1.5s
+                        const randomDelay = Math.random() * 500;
+
+                        setTimeout(() => {
+                            startCounter(counter, 0, target, duration);
+                        }, randomDelay);
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); // Il contatore deve essere almeno per il 50% visibile
+
+        // Applica l'Observer a tutti i contatori
+        counters.forEach(counter => observer.observe(counter));
+    });
+
+    /**
+     * Funzione per avviare un contatore numerico animato con easing cubic.
+     * @param {HTMLElement} element L'elemento in cui aggiornare il numero
+     * @param {number} start Numero iniziale
+     * @param {number} end Numero finale
+     * @param {number} duration Durata dell'animazione in millisecondi
+     */
+    function startCounter(element, start, end, duration) {
+        let startTime = null;
+        let range = end - start;
+
+        function updateCounter(currentTime) {
+            if (!startTime) startTime = currentTime;
+            
+            let elapsedTime = currentTime - startTime;
+            let progress = Math.min(elapsedTime / duration, 1); // Normalizza tra 0 e 1
+
+            // Applica la funzione di easing cubic
+            let easedProgress = easeOutCubic(progress);
+
+            element.textContent = Math.floor(start + range * easedProgress).toString();
+
+            if (elapsedTime < duration) {
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = end.toString(); // Assicura precisione
+            }
+        }
+
+        requestAnimationFrame(updateCounter);
+    }
+
+    /**
+     * Funzione di easing cubic (rallenta gradualmente alla fine).
+     * @param {number} t Valore normalizzato tra 0 e 1
+     * @returns {number} Valore trasformato per un'animazione più fluida
+     */
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+</script>
