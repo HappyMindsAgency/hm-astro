@@ -1,0 +1,6 @@
+// custom.scss
+$primary: #d0005a; // Nuovo colore primario
+$border-radius: 50rem; // Nuovo raggio di bordo
+
+// Importa il Bootstrap dopo la personalizzazione
+@import "bootstrap/scss/bootstrap";

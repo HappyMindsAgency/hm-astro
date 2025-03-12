@@ -1,0 +1,217 @@
+:root {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #d0005a;
+    --bs-btn-border-color: #d0005a;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #a00045;
+    --bs-btn-hover-border-color: #a00045;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #a00045;
+    --bs-btn-active-border-color: #a00045;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #d0005a;
+    --bs-btn-disabled-border-color: #d0005a;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+p, ol, ul, li, a.btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6, a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase
+}
+
+a.nav-link {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+/* Navbar full width */
+.navbar-custom {
+    width: 100vw;
+    height: 100px;
+    transition: height 0.3s ease-in-out;
+}
+
+/* Navbar ridotta */
+.navbar-custom.shrunk {
+    height: 60px;
+}
+
+/* Logo adattabile */
+.navbar-brand img {
+    height: 100%;
+    width: auto;
+    max-height: 40px;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Quando la navbar si riduce */
+.navbar-custom.shrunk .navbar-brand img {
+    max-height: 30px;
+}
+
+/* Stile dei link */
+.nav-link {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Effetto hover */
+.nav-link:hover {
+    color: #d0005a !important;
+}
+
+/* Bottone hamburger */
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+/* Modale menu mobile */
+.full-screen-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Quando il menu è aperto */
+.full-screen-menu.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Stile dei link nel modale */
+.full-screen-menu a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 0;
+    transition: color 0.2s ease-in-out;
+}
+
+.full-screen-menu a:hover {
+    color: #007bff;
+}
+
+/* Stile del pulsante X */
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+#testata {
+    height: 70vh;
+}
+
+/* Contenitore del video */
+#testata #video-testata {
+    position: relative;
+    overflow: hidden;
+    height: 70vh;
+    background-color: #000000c2;
+    mix-blend-mode: multiply;
+}
+
+/* Video di sfondo */
+#testata #video-testata video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay per il gradiente scuro */
+#testata #video-testata::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Contenuto sopra il video */
+#testata #contenuto-testata {
+    z-index: 2; /* Mantiene il contenuto sopra l'overlay */
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.titolo-header {
+    background-color: #d0005a;
+    padding: 0 1rem;
+}
+
+div.titolo-header h1 {
+    font-size: 6rem;
+    font-weight: 600;
+    line-height: 6rem;
+}
+
+#testata #contenuto-testata h2 {
+    margin: 1rem 0;
+}
+
+#testata #contenuto-testata p {
+    font-weight: 300;
+}
+
+a.btn-cta {
+    margin-top: 2rem;
+    text-transform: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0.7rem 3rem;
+}
+
+#footer {
+    height: 300px;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    margin-top: 20px;
+}
+
+
+/* Nasconde la navbar classica su mobile */
+@media (max-width: 992px) {
+    .desktop-menu {
+        display: none;
+    }
+}
