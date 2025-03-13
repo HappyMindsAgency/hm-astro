@@ -1,28 +1,74 @@
 ---
+import { Image } from "astro:assets";
+
 interface Counter {
     numero: number;
     titolo: string;
+    sottotitolo: string;
 }
 
 let rand = 0;
 const { pd } = Astro.props;
+
+//console.log(pd);
 ---
 
-<div class="row h-50 d-flex justify-content-center align-items-center">
-    {pd.counter.map((counter: Counter, index: number) => (
-        rand = Math.floor(Math.random() * 4) + 2,
-        <div class="col-4 text-center">
-            <h2 class="fs-1">
-                +<span 
-                    id={`counter-${index}`} 
-                    class="count-up"
-                    data-target={counter.numero} 
-                    data-duration={rand * 1000}
-                >0</span>
-            </h2>
-            <p>{counter.titolo}</p>
+<div class="col-12 container-fluid riga-counter">
+    {pd.immagine ? (
+    <div class="row p-4">
+        <div class="col-5 d-flex justify-content-center align-items-center">
+            <Image 
+                class="m-auto" 
+                src={`${import.meta.env.STRAPI_URL}${pd.immagine.url}`} 
+                alt={pd.immagine.alternativeText ? pd.immagine.alternativeText : pd.immagine.name} 
+                width={pd.immagine.width} 
+                height={pd.immagine.height}
+            />
         </div>
-    ))}
+        <div class="col-7">
+            <div class="row h-100 d-flex justify-content-between align-content-between">
+            {pd.counter.map((counter: Counter, index: number) => (
+                rand = Math.floor(Math.random() * 3) + 1,
+                console.log(rand),
+                <div class="col-6 counter-container">
+                    <h2 class="mb-0">
+                        <span 
+                            id={`counter-${index}`} 
+                            class="count-up"
+                            data-target={counter.numero} 
+                            data-duration={rand * 1000}
+                        >0</span>
+                    </h2>
+                    <p class="mb-0 titolo">{counter.titolo}</p>
+                    <p class="mb-0 sottotitolo">{counter.sottotitolo}</p>
+                </div>
+            ))}
+            </div>
+        </div>
+    </div>
+    ) : (
+    <div class="row p-4">
+        <div class="col-12">
+            <div class="row">
+            {pd.counter.map((counter: Counter, index: number) => (
+                rand = Math.floor(Math.random() * 3) + 1,
+                <div class="col-3 counter-container text-center">
+                    <h2 class="mb-0">
+                        <span 
+                            id={`counter-${index}`} 
+                            class="count-up"
+                            data-target={counter.numero} 
+                            data-duration={rand * 1000}
+                        >0</span>
+                    </h2>
+                    <p class="mb-0 titolo">{counter.titolo}</p>
+                    <p class="mb-0 sottotitolo">{counter.sottotitolo}</p>
+                </div>
+            ))}
+            </div>
+        </div>
+    </div>
+    )}
 </div>
 
 <script is:inline>

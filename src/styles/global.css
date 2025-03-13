@@ -27,6 +27,10 @@ p, ol, ul, li, a.btn {
   font-weight: 400;
 }
 
+p {
+    color: #4d4d4d;
+}
+
 h1, h2, h3, h4, h5, h6, a {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 500;
@@ -36,6 +40,7 @@ h1, h2, h3, h4, h5, h6, a {
 a.nav-link {
     font-weight: 600;
     font-size: 1.5rem;
+    color: #232323;
 }
 
 /* Navbar full width */
@@ -188,6 +193,7 @@ div.titolo-header h1 {
 
 #testata #contenuto-testata p {
     font-weight: 300;
+    color: #fff;
 }
 
 a.btn-cta {
@@ -198,7 +204,26 @@ a.btn-cta {
     padding: 0.7rem 3rem;
 }
 
-#footer {
+.riga-counter .counter-container h2 {
+    color: #d0005a;
+    font-weight: 700;
+}
+
+.riga-counter .counter-container h2 span {
+    font-size: 7vw;
+}
+
+.riga-counter .counter-container p.titolo {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.riga-counter .counter-container p.sottotitolo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#footer .main-section {
     height: 300px;
     background-color: #000;
     color: #fff;
@@ -206,6 +231,16 @@ a.btn-cta {
     text-align: center;
     font-size: 0.8em;
     margin-top: 20px;
+}
+
+#footer .secondary-section p {
+    color: #d0005a;
+    font-size: 0.8rem;
+}
+
+#footer .secondary-section svg {
+    height: 1.8rem;
+    fill: #d0005a;
 }
 
 
