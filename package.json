@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "astro": "^5.4.2",
-    "astro-bootstrap": "^0.7.0",
-    "countup.js": "^2.8.0"
+    "astro-bootstrap": "^0.7.0"
   },
   "devDependencies": {
     "sass": "^1.85.1",
