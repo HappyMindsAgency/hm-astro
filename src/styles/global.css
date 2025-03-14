@@ -140,7 +140,7 @@ a.nav-link {
 #testata #video-testata {
     position: relative;
     overflow: hidden;
-    height: 70vh;
+    height: 75vh;
     background-color: #000000c2;
     mix-blend-mode: multiply;
 }
@@ -182,7 +182,7 @@ div.titolo-header {
 }
 
 div.titolo-header h1 {
-    font-size: 6rem;
+    font-size: clamp(2rem, 1.65rem + 1.75vw, 3.75rem);
     font-weight: 600;
     line-height: 6rem;
 }
@@ -210,7 +210,7 @@ a.btn-cta {
 }
 
 .riga-counter .counter-container h2 span {
-    font-size: clamp(3rem, 2.2rem + 3.8vw, 7rem);
+    font-size: clamp(3rem, 2.2rem + 3.8vw, 7rem);
 }
 
 .riga-counter .counter-container p.titolo {
@@ -222,7 +222,7 @@ a.btn-cta {
     font-size: 1.5rem;
     font-weight: 700;
 }
-
+/*
 #footer .main-section {
     height: 300px;
     background-color: #000;
@@ -231,17 +231,7 @@ a.btn-cta {
     text-align: center;
     font-size: 0.8em;
     margin-top: 20px;
-}
-
-#footer .secondary-section p {
-    color: #d0005a;
-    font-size: 0.8rem;
-}
-
-#footer .secondary-section svg {
-    height: 1.8rem;
-    fill: #d0005a;
-}
+}*/
 
 
 /* Nasconde la navbar classica su mobile */
