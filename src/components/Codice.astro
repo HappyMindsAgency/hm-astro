@@ -1,0 +1,16 @@
+---
+
+const { pd } = Astro.props;
+
+---
+
+
+<section id="codice">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div set:html={pd.Code}></div>
+            </div>
+        </div>
+    </div>
+</section>
