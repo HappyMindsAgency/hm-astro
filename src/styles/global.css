@@ -210,7 +210,7 @@ a.btn-cta {
 }
 
 .riga-counter .counter-container h2 span {
-    font-size: 7vw;
+    font-size: clamp(3rem, 2.2rem + 3.8vw, 7rem);
 }
 
 .riga-counter .counter-container p.titolo {
