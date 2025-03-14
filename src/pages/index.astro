@@ -4,6 +4,8 @@ import RigaCounter from '../components/RigaCounter.astro';
 import VideoHeader from '../components/VideoHeader.astro';
 import Media from '../components/Media.astro';
 import Layout from '../layouts/Layout.astro';
+import Presentation from '../components/Presentation.astro';
+import ClientSlider from '../components/ClientSlider.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -39,4 +41,7 @@ const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-hea
 			</slot>
 		))
 	}
+	<ClientSlider />
+	<Presentation />
+
 </Layout>
