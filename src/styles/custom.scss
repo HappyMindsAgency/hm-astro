@@ -8,11 +8,24 @@ $h2-font-size: clamp(2rem, 1.65rem + 1.75vw, 3.75rem);
 @import "bootstrap/scss/bootstrap.scss";
 
 
+#who-we-are {
+    background: none;
+
+    @media only screen and (min-width: 992px) {
+        background-image: url('../assets/images/happyminds-felix-background.jpg');
+        background-position: top right;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+}
+
 #footer {
     .secondary-section {
         p {
             color: $primary;
             font-size: 0.8rem;
+            margin-bottom: 0;
         }
 
         svg {
