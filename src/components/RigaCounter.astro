@@ -29,7 +29,6 @@ const { pd } = Astro.props;
             <div class="row h-100 d-flex justify-content-between align-content-between">
             {pd.counter.map((counter: Counter, index: number) => (
                 rand = Math.floor(Math.random() * 3) + 1,
-                console.log(rand),
                 <div class="col-6 counter-container">
                     <h2 class="mb-0">
                         <span 
