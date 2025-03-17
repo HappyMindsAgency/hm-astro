@@ -5,6 +5,9 @@ export default async function fetchApi({
     wrappedByList,
     page,
     locale,
+    secondLevel,
+    secondLevelQuery,
+    secondLevelTarget,
 }) {
     if (endpoint.startsWith('/')) {
         endpoint = endpoint.slice(1);
@@ -25,7 +28,22 @@ export default async function fetchApi({
     if (page) {
         url.searchParams.append(`populate[${page}][populate]`, '*');
     } else {
-        url.searchParams.append('populate', '*');
+        /**
+         * Per triggerare questo IF bisogna lasciare il parametro PAGE vuoto
+         * Da qui parte modifica custom per popolare componenti di secondo livello
+         * come esempio fare riferimento al componente ClientSlider.astro
+         */
+        if (secondLevel) {
+            if (typeof secondLevelTarget === "object") {
+                Object.entries(secondLevelTarget).forEach(([key, value]) => {
+                    url.searchParams.append(`populate[${secondLevel}]${secondLevelQuery}[populate]`, value);
+                });
+            } else {
+                url.searchParams.append(`populate[${secondLevel}]${secondLevelQuery}[populate]`, secondLevelTarget);
+            }
+        } else {
+            url.searchParams.append('populate', '*');
+        }
     }
 
     const res = await fetch(url.toString());
@@ -47,6 +65,8 @@ export default async function fetchApi({
             data = data[0][page];
         }
     }
+
+    //console.log(url);
 
     return data;
 }

@@ -11,7 +11,6 @@ import Codice from '../components/Codice.astro';
 // Define the interface for the pageData objects
 interface PageData {
     __component: string;
-    documentId: string;
     // Add other properties as needed
 }
 
@@ -22,14 +21,17 @@ const pageData: PageData[] = await fetchApi({
 	wrappedByKey: 'data',
     query: {}, // Provide an empty object or appropriate query parameters
     wrappedByList: false, // Provide a default value
-    locale: '' // Provide a default locale
+    locale: '', // Provide a default locale
+    secondLevel: '',
+    secondLevelQuery: '',
+    secondLevelTarget: '',
 });
-
-//console.log(pageData);
 
 /* const landingID = pageData[0].documentId;
 
-const counterData = pageData.find(pd => pd.__component === 'shared.riga-counter');
+console.log(pageData); */
+
+/* const counterData = pageData.find(pd => pd.__component === 'shared.riga-counter');
 const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-header'); */
 ---
 <Layout>
@@ -40,10 +42,10 @@ const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-hea
 				{pd.__component === 'shared.riga-counter' && <RigaCounter {pd} />}
 				{pd.__component === 'shared.media' && <Media {pd} />}
 				{pd.__component === 'shared.codice' && <Codice {pd} />}
+				{pd.__component === 'shared.slider-clienti' && <ClientSlider {pd} />}
 			</slot>
 		))
 	}
-	<ClientSlider />
 	<Presentation />
 
 </Layout>

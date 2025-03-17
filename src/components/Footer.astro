@@ -28,7 +28,10 @@ const pageDataColonna1: PageData[] = await fetchApi({
 	wrappedByKey: 'data',
     query: {}, // Provide an empty object or appropriate query parameters
     wrappedByList: false, // Provide a default value
-    locale: '' // Provide a default locale
+    locale: '', // Provide a default locale
+    secondLevel: '',
+    secondLevelQuery: '',
+    secondLevelTarget: '',
 });
 const nomeAgenzia = pageDataColonna1.nomeAgenzia;
 const descrizione = pageDataColonna1.descrizione;
@@ -39,7 +42,10 @@ const pageDataColonna2: PageData[] = await fetchApi({
 	wrappedByKey: 'data',
     query: {}, // Provide an empty object or appropriate query parameters
     wrappedByList: false, // Provide a default value
-    locale: '' // Provide a default locale
+    locale: '', // Provide a default locale
+    secondLevel: '',
+    secondLevelQuery: '',
+    secondLevelTarget: '',
 });
 const policies = pageDataColonna2.link;
 const info = pageDataColonna2.infoIcona;
@@ -51,7 +57,10 @@ const pageDataBottomBar: PageData[] = await fetchApi({
 	wrappedByKey: 'data',
     query: {}, // Provide an empty object or appropriate query parameters
     wrappedByList: false, // Provide a default value
-    locale: '' // Provide a default locale
+    locale: '', // Provide a default locale
+    secondLevel: '',
+    secondLevelQuery: '',
+    secondLevelTarget: '',
 });
 const credits = pageDataBottomBar.credits;
 const social = pageDataBottomBar.iconaSocial;

@@ -1,5 +1,5 @@
 #hs-form-virality-container {
-    display: none;
+    display: none !important;
 }
 
 html,

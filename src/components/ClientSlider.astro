@@ -1,53 +1,138 @@
 ---
+const { pd } = Astro.props; // sarebbe da passare l'ID da index.astro in caso ci sia più di una landing page
+import fetchApi from '../lib/strapi';
+import { Image } from "astro:assets";
 
+// Define the interface for the pageData objects
+interface ClienteData {
+    Content: [{ 
+        cliente: { 
+            id: number,
+            nome: string,
+            logo: {
+                id: number,
+                documentId: string,
+                name: string,
+                alternativeText: string,
+                caption: string,
+                width: number,
+                height: number,
+                formats: {
+                    thumbnail: {
+                        url: string,
+                        width: number,
+                        height: number,
+                    }
+                },
+                url: string,
+                hash: string,
+                ext: string,
+                mime: string,
+                size: number,
+                previewUrl: string,
+                provider: string,
+                provider_metadata: string,
+                createdAt: string,
+                updatedAt: string,
+                publishedAt: string
+            }, 
+            link: {
+                id: number,
+                testoLink: string,
+                link: string,
+                title: string,
+                class: string,
+                targetBlank: boolean,
+            } 
+        } 
+    }];
+}
+interface Counter {
+    link: {
+        link: string;
+        class: string;
+        title: string;
+        targetBlank: boolean;
+    };
+    logo: {
+        url: string;
+        alternativeText: string;
+        width: number;
+        height: number;
+    };
+    // Add other properties as needed
+}
+
+/**
+ * esempio link chiamata API
+ * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[Content][on][shared.slider-clienti][populate]=cliente.logo&populate[Content][on][shared.slider-clienti][populate]=cliente.link
+ */
+const clienteData: ClienteData[] = await fetchApi({
+
+    // sostituire ID statico con ID dinamico passato con props in caso di più landing pages
+	endpoint: 'landing-pages/yd9u9u9k5wtvej3e8sv0uf3h', 
+
+    //lasciare vuoto se si cerca un ID particolare (es. landing-pages/yd9u9u9k5wtvej3e8sv0uf3h)
+	page: '', 
+
+	wrappedByKey: 'data',
+
+    // Provide an empty object or appropriate query parameters
+    query: {}, 
+
+    // Provide a default value
+    wrappedByList: false, 
+
+    // Provide a default locale
+    locale: '', 
+
+    /**
+     * USARE I TRE PARAMETRI SEGUENTI SOLO NEL CASO SPECIFICO DI POPOLAMENTO DI SECONDO LIVELLO E DI ID SPECIFICI
+     * es. /api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[Content][on][shared.slider-clienti][populate]=cliente.logo
+     * es. /api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[Content][on][shared.slider-clienti][populate]=cliente.link
+     *              ^                     ^                         ^                   ^                         ^
+     *              |                     |                         |                   |                         |
+     *           endpoint           ID specifico        nome blocco dinamico     nome componente        nome sottocomponente
+     */
+    // popolare con il nome del contenitore dinamico solo nel caso si voglia popolare un componente al suo interno a un livello dal secondo in poi
+    secondLevel: 'Content', 
+
+    // inserire la stringa che va a specificare quale componente popolare all'interno del blocco dinamico principale
+    secondLevelQuery: '[on][shared.slider-clienti]', 
+
+    // inserire il campo che si vuole popolare, creare array nel caso se ne vogliano popolare più di uno, lasciare una stringa semplice in caso contrario
+    secondLevelTarget: ['cliente.logo', 'cliente.link'], 
+});
+
+const clienti = clienteData.Content[0].cliente;
+const logoUrl = import.meta.env.STRAPI_URL;
 ---
 
 
 <section id="slider-clienti">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 py-5">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 py-5 px-5">
                 <div class="swiper pb-5">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/400/400" class="img-fluid rounded-4">
-                        </div>
+                        {clienti.map((counter: Counter, index: number) => (
+                            <div class="swiper-slide" id={`swiper-slide logo-${index+1}`}>
+                                <a 
+                                    href={counter.link.link} 
+                                    class={counter.link.class} 
+                                    title={counter.link.title} 
+                                    target={counter.link.targetBlank ? '_blank' : ''}
+                                >
+                                    <Image 
+                                        src={logoUrl+counter.logo.url} 
+                                        class="img-fluid rounded-4" 
+                                        alt={counter.logo.alternativeText} 
+                                        width={counter.logo.width} 
+                                        height={counter.logo.height} 
+                                    />
+                                </a>
+                            </div>
+                        ))}
                     </div>
 
                     <div class="swiper-pagination"></div>
