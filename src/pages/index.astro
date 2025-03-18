@@ -28,12 +28,7 @@ const pageData: PageData[] = await fetchApi({
     secondLevelTarget: '',
 });
 
-/* const landingID = pageData[0].documentId; */
-
-console.log(pageData);
-
-/* const counterData = pageData.find(pd => pd.__component === 'shared.riga-counter');
-const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-header'); */
+//console.log(pageData);
 ---
 <Layout>
 	{
@@ -42,12 +37,12 @@ const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-hea
 				{pd.__component === 'shared.video-header' && <VideoHeader {pd} />}
 				{pd.__component === 'shared.riga-counter' && <RigaCounter {pd} />}
 				{pd.__component === 'shared.media' && <Media {pd} />}
-				{/*pd.__component === 'shared.codice' && <Codice {pd} />*/}
+				{pd.__component === 'shared.codice' && <Codice {pd} />}
 				{pd.__component === 'shared.slider-clienti' && <ClientSlider {pd} />}
+				{pd.__component === 'shared.call-to-action' && <CallToAction {pd} />}
 			</slot>
 		))
 	}
-	<CallToAction />
 	<Presentation />
 
 </Layout>
