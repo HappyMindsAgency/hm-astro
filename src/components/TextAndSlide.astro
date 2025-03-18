@@ -1,10 +1,34 @@
 ---
 import imgMtgt from '../assets/images/mtgt.png';
+
+interface Props {
+    reverse: string;
+}
+
+const { reverse } = Astro.props;
+
 ---
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+    const mySwiperTextSlide = new Swiper('.mySwiperTextSlide', {
+        slidesPerView: 1,
+        spaceBetween: 50,
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+</script>
 
 <section id="text-and-foto" class="py-3 py-lg-5">
     <div class="container">
-        <div class="row d-flex flex-row-reverse">
+        <div class=`row d-flex ${reverse}`>
             <div class="col-lg-6 p-3 p-lg-5">
                 <div class="text-container pt-3 pb-3">
                     <h3 class="text-primary lh-1 fw-bold fs-2 pb-3">Marketing territoriale <br>e Governance turistica</h3>
@@ -13,7 +37,26 @@ import imgMtgt from '../assets/images/mtgt.png';
             </div>
 
             <div class="col-lg-6 p-3 p-lg-5">
-                <img src={imgMtgt.src} class="img-fluid">
+                <div class="swiper mySwiperTextSlide ">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src={imgMtgt.src} class="img-fluid">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src={imgMtgt.src} class="img-fluid">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src={imgMtgt.src} class="img-fluid">
+                        </div>
+
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                
             </div>
         </div>
     </div>

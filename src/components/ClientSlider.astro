@@ -73,7 +73,7 @@ interface Counter {
 const clienteData: ClienteData[] = await fetchApi({
 
     // sostituire ID statico con ID dinamico passato con props in caso di più landing pages
-	endpoint: 'landing-pages/yd9u9u9k5wtvej3e8sv0uf3h', 
+	endpoint: 'landing-pages/lk0gaatzkwams9u6dk6l1ifw', 
 
     //lasciare vuoto se si cerca un ID particolare (es. landing-pages/yd9u9u9k5wtvej3e8sv0uf3h)
 	page: '', 
@@ -111,7 +111,40 @@ let clienti = clienteData.content;
 
 const logoUrl = import.meta.env.STRAPI_URL;
 ---
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+    
+    
+    const swiper = new Swiper('.swiper', {
+        slidesPerView: 2, 
+        spaceBetween: 52, 
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true,
+        },
 
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 52,
+            },
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 52,
+            },
+            1024: {
+                slidesPerView: 6,
+                spaceBetween: 52,
+            },
+        }
+    });    
+</script>
 
 <section id="slider-clienti">
     <div class="container-fluid">
@@ -132,7 +165,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
                                             <Image 
                                                 src={logoUrl+cliente.logo.url} 
                                                 class="img-fluid rounded-4" 
-                                                alt={cliente.logo.alternativeText} 
+                                                alt={cliente.logo.alternativeText ? cliente.logo.alternativeText : ""} 
                                                 width={cliente.logo.width} 
                                                 height={cliente.logo.height} 
                                             />

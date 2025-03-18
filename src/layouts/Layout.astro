@@ -21,41 +21,6 @@ import "../styles/custom.scss";
 <html lang="en">
 	<Head {title} {description} />
 	<body data-bs-smooth-scroll="true">
-		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-		<script type="module">
-			import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
-			
-			
-			const swiper = new Swiper('.swiper', {
-				slidesPerView: 2, 
-				spaceBetween: 52, 
-				loop: true,
-				navigation: {
-					nextEl: '.swiper-button-next',
-					prevEl: '.swiper-button-prev',
-				},
-				pagination: {
-					el: '.swiper-pagination',
-					type: 'bullets',
-					clickable: true,
-				},
-
-				breakpoints: {
-					640: {
-						slidesPerView: 2,
-						spaceBetween: 52,
-					},
-					768: {
-						slidesPerView: 4,
-						spaceBetween: 52,
-					},
-					1024: {
-						slidesPerView: 6,
-						spaceBetween: 52,
-					},
-				}
-			});    
-			</script>
 		<Nav />
 
 		<slot />
