@@ -3,49 +3,50 @@ const { pd } = Astro.props; // sarebbe da passare l'ID da index.astro in caso ci
 import fetchApi from '../lib/strapi';
 import { Image } from "astro:assets";
 
-// Define the interface for the pageData objects
-interface ClienteData {
-    Content: [{ 
-        cliente: { 
+// Define the interface for the pageData objectsContent[{ 
+interface Content {
+    cliente: { 
+        id: number,
+        nome: string,
+        logo: {
             id: number,
-            nome: string,
-            logo: {
-                id: number,
-                documentId: string,
-                name: string,
-                alternativeText: string,
-                caption: string,
-                width: number,
-                height: number,
-                formats: {
-                    thumbnail: {
-                        url: string,
-                        width: number,
-                        height: number,
-                    }
-                },
-                url: string,
-                hash: string,
-                ext: string,
-                mime: string,
-                size: number,
-                previewUrl: string,
-                provider: string,
-                provider_metadata: string,
-                createdAt: string,
-                updatedAt: string,
-                publishedAt: string
-            }, 
-            link: {
-                id: number,
-                testoLink: string,
-                link: string,
-                title: string,
-                class: string,
-                targetBlank: boolean,
-            } 
+            documentId: string,
+            name: string,
+            alternativeText: string,
+            caption: string,
+            width: number,
+            height: number,
+            formats: {
+                thumbnail: {
+                    url: string,
+                    width: number,
+                    height: number,
+                }
+            },
+            url: string,
+            hash: string,
+            ext: string,
+            mime: string,
+            size: number,
+            previewUrl: string,
+            provider: string,
+            provider_metadata: string,
+            createdAt: string,
+            updatedAt: string,
+            publishedAt: string
+        }, 
+        link: {
+            id: number,
+            testoLink: string,
+            link: string,
+            title: string,
+            class: string,
+            targetBlank: boolean,
         } 
-    }];
+    } 
+};
+interface ClienteData {
+    content: Content[];
 }
 interface Counter {
     link: {
@@ -60,6 +61,8 @@ interface Counter {
         width: number;
         height: number;
     };
+    id: number;
+    cliente: Counter[];
     // Add other properties as needed
 }
 
@@ -95,7 +98,7 @@ const clienteData: ClienteData[] = await fetchApi({
      *           endpoint           ID specifico        nome blocco dinamico     nome componente        nome sottocomponente
      */
     // popolare con il nome del contenitore dinamico solo nel caso si voglia popolare un componente al suo interno a un livello dal secondo in poi
-    secondLevel: 'Content', 
+    secondLevel: 'content', 
 
     // inserire la stringa che va a specificare quale componente popolare all'interno del blocco dinamico principale
     secondLevelQuery: '[on][shared.slider-clienti]', 
@@ -104,7 +107,8 @@ const clienteData: ClienteData[] = await fetchApi({
     secondLevelTarget: ['cliente.logo', 'cliente.link'], 
 });
 
-const clienti = clienteData.Content[0].cliente;
+let clienti = clienteData.content;
+
 const logoUrl = import.meta.env.STRAPI_URL;
 ---
 
@@ -115,23 +119,35 @@ const logoUrl = import.meta.env.STRAPI_URL;
             <div class="col-12 py-5 px-5">
                 <div class="swiper pb-5">
                     <div class="swiper-wrapper">
-                        {clienti.map((counter: Counter, index: number) => (
-                            <div class="swiper-slide" id={`swiper-slide logo-${index+1}`}>
-                                <a 
-                                    href={counter.link.link} 
-                                    class={counter.link.class} 
-                                    title={counter.link.title} 
-                                    target={counter.link.targetBlank ? '_blank' : ''}
-                                >
-                                    <Image 
-                                        src={logoUrl+counter.logo.url} 
-                                        class="img-fluid rounded-4" 
-                                        alt={counter.logo.alternativeText} 
-                                        width={counter.logo.width} 
-                                        height={counter.logo.height} 
-                                    />
-                                </a>
-                            </div>
+                        {clienti.map((counter: Counter) => (
+                            counter.id === pd.id && counter.cliente.map((cliente: Counter, index: number) => (
+                                <div class="swiper-slide" id={`swiper-slide logo-${index+1}`}>
+                                    {cliente.link ? (
+                                        <a 
+                                            href={cliente.link.link} 
+                                            class={cliente.link.class} 
+                                            title={cliente.link.title} 
+                                            target={cliente.link.targetBlank ? '_blank' : ''}
+                                        >
+                                            <Image 
+                                                src={logoUrl+cliente.logo.url} 
+                                                class="img-fluid rounded-4" 
+                                                alt={cliente.logo.alternativeText} 
+                                                width={cliente.logo.width} 
+                                                height={cliente.logo.height} 
+                                            />
+                                        </a>
+                                    ) : (
+                                        <Image 
+                                            src={logoUrl+cliente.logo.url} 
+                                            class="img-fluid rounded-4" 
+                                            alt={cliente.logo.alternativeText} 
+                                            width={cliente.logo.width} 
+                                            height={cliente.logo.height} 
+                                        />
+                                    )}
+                                </div>
+                            ))
                         ))}
                     </div>
 

@@ -19,7 +19,7 @@ interface PageData {
 //http://localhost:1337/api/landing-pages?populate[Content][populate]=*
 const pageData: PageData[] = await fetchApi({
 	endpoint: 'landing-pages',
-	page: 'Content',
+	page: 'content',
 	wrappedByKey: 'data',
     query: {}, // Provide an empty object or appropriate query parameters
     wrappedByList: false, // Provide a default value
@@ -29,9 +29,9 @@ const pageData: PageData[] = await fetchApi({
     secondLevelTarget: '',
 });
 
-/* const landingID = pageData[0].documentId;
+/* const landingID = pageData[0].documentId; */
 
-console.log(pageData); */
+console.log(pageData);
 
 /* const counterData = pageData.find(pd => pd.__component === 'shared.riga-counter');
 const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-header'); */

@@ -15,11 +15,11 @@ const videoUrl = `${import.meta.env.STRAPI_URL}${pd.video.url}`;
             <h2 class="fs-2">{pd.sottotitolo}</h2>
             <p>{pd.descrizione}</p>
             <a 
-                href={pd.pulsante.url} 
-                title={pd.pulsante.titolo} 
-                target={pd.pulsante.destinazioneLink ? '_blank' : ''} 
-                class="btn btn-cta btn-primary"
-            >{pd.pulsante.etichetta}</a>
+                href={pd.pulsante.link} 
+                title={pd.pulsante.title} 
+                target={pd.pulsante.targetBlank ? '_blank' : ''} 
+                class={pd.pulsante.class}
+            >{pd.pulsante.testoLink}</a>
         </div>
     </div>
 </div>
