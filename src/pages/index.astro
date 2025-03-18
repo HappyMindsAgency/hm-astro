@@ -7,6 +7,7 @@ import Layout from '../layouts/Layout.astro';
 import Presentation from '../components/Presentation.astro';
 import ClientSlider from '../components/ClientSlider.astro';
 import Codice from '../components/Codice.astro';
+import CallToAction from '../components/CallToAction.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -41,11 +42,12 @@ const videoHeaderData = pageData.find(pd => pd.__component === 'shared.video-hea
 				{pd.__component === 'shared.video-header' && <VideoHeader {pd} />}
 				{pd.__component === 'shared.riga-counter' && <RigaCounter {pd} />}
 				{pd.__component === 'shared.media' && <Media {pd} />}
-				{pd.__component === 'shared.codice' && <Codice {pd} />}
+				{/*pd.__component === 'shared.codice' && <Codice {pd} />*/}
 				{pd.__component === 'shared.slider-clienti' && <ClientSlider {pd} />}
 			</slot>
 		))
 	}
+	<CallToAction />
 	<Presentation />
 
 </Layout>

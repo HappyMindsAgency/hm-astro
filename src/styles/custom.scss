@@ -2,10 +2,15 @@
 $primary: #d0005a; // Nuovo colore primario
 $border-radius: 50rem; // Nuovo raggio di bordo
 
-$h2-font-size: clamp(2rem, 1.65rem + 1.75vw, 3.75rem);
+$h2-font-size: clamp(1.625rem, 1.2rem + 2.125vw, 3.75rem);
 
 // Importa il Bootstrap dopo la personalizzazione
 @import "bootstrap/scss/bootstrap.scss";
+
+
+.fs-big {
+    font-size: clamp(1.75rem, 1.175rem + 2.875vw, 4.625rem);
+}
 
 
 #who-we-are {
