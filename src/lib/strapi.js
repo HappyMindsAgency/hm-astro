@@ -59,7 +59,7 @@ export default async function fetchApi({
 
     if (page) {
         //data = data[0]['attributes'][page];
-        if (page !== 'Content') {
+        if (page !== 'content') {
             data = data[page];
         } else {
             data = data[0][page];
