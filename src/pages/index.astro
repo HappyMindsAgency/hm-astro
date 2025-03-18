@@ -8,6 +8,7 @@ import Presentation from '../components/Presentation.astro';
 import ClientSlider from '../components/ClientSlider.astro';
 import Codice from '../components/Codice.astro';
 import CallToAction from '../components/CallToAction.astro';
+import TextAndSlide from '../components/TextAndSlide.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -43,6 +44,8 @@ const pageData: PageData[] = await fetchApi({
 			</slot>
 		))
 	}
+	<TextAndSlide />
+	<CallToAction />
 	<Presentation />
 
 </Layout>
