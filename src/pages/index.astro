@@ -16,7 +16,7 @@ interface PageData {
     // Add other properties as needed
 }
 
-//http://localhost:1337/api/landing-pages?populate[Content][populate]=*
+//http://localhost:1337/api/landing-pages?populate[content][populate]=*
 const pageData: PageData[] = await fetchApi({
 	endpoint: 'landing-pages',
 	page: 'content',
@@ -29,6 +29,8 @@ const pageData: PageData[] = await fetchApi({
     secondLevelTarget: '',
 });
 
+const landingID = import.meta.env.LANDING_ID;
+
 //console.log(pageData);
 ---
 <Layout>
@@ -38,14 +40,13 @@ const pageData: PageData[] = await fetchApi({
 				{pd.__component === 'shared.video-header' && <VideoHeader {pd} />}
 				{pd.__component === 'shared.riga-counter' && <RigaCounter {pd} />}
 				{pd.__component === 'shared.media' && <Media {pd} />}
-				{pd.__component === 'shared.codice' && <Codice {pd} />}
-				{pd.__component === 'shared.slider-clienti' && <ClientSlider {pd} />}
+				{pd.__component === 'shared.slider-clienti' && <ClientSlider {pd} {landingID} />}
 				{pd.__component === 'shared.call-to-action' && <CallToAction {pd} />}
+				{pd.__component === 'shared.container-text-and-slide' && <TextAndSlide {pd} {landingID} />}
+				{pd.__component === 'shared.codice' && <Codice {pd} />}
 			</slot>
 		))
 	}
-	<TextAndSlide reverse="" />
-	<TextAndSlide reverse="flex-row-reverse" />
 	<Presentation />
 
 </Layout>

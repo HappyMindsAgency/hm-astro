@@ -1,0 +1,5 @@
+# TODO List for HM Landing Page Project
+
+- [ ] Implementare rich text editor classico al posto di quello JSON nei componenti dove viene usato
+- [V] Impostare variabile globale con ID della landing page specifica nel file .env
+- [V] Rendere dinamico il retrieve dell'ID nel componente ClientSlider.astro

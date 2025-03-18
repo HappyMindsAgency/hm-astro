@@ -1,5 +1,5 @@
 ---
-const { pd } = Astro.props; // sarebbe da passare l'ID da index.astro in caso ci sia più di una landing page
+const { pd, landingID } = Astro.props;
 import fetchApi from '../lib/strapi';
 import { Image } from "astro:assets";
 
@@ -47,7 +47,7 @@ interface Content {
 };
 interface ClienteData {
     content: Content[];
-}
+};
 interface Counter {
     link: {
         link: string;
@@ -64,17 +64,16 @@ interface Counter {
     id: number;
     cliente: Counter[];
     // Add other properties as needed
-}
+};
 
 /**
  * esempio link chiamata API
- * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[Content][on][shared.slider-clienti][populate]=cliente.logo&populate[Content][on][shared.slider-clienti][populate]=cliente.link
+ * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
  */
 const clienteData: ClienteData[] = await fetchApi({
 
     // sostituire ID statico con ID dinamico passato con props in caso di più landing pages
-	endpoint: 'landing-pages/yd9u9u9k5wtvej3e8sv0uf3h', 
-	//endpoint: 'landing-pages/lk0gaatzkwams9u6dk6l1ifw',   // usare questo ID quando nel file .env si usa la versione di Strapi online e in produzione
+	endpoint: `landing-pages/${landingID}`, 
 
     //lasciare vuoto se si cerca un ID particolare (es. landing-pages/yd9u9u9k5wtvej3e8sv0uf3h)
 	page: '', 
@@ -92,8 +91,8 @@ const clienteData: ClienteData[] = await fetchApi({
 
     /**
      * USARE I TRE PARAMETRI SEGUENTI SOLO NEL CASO SPECIFICO DI POPOLAMENTO DI SECONDO LIVELLO E DI ID SPECIFICI
-     * es. /api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[Content][on][shared.slider-clienti][populate]=cliente.logo
-     * es. /api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[Content][on][shared.slider-clienti][populate]=cliente.link
+     * es. /api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo
+     * es. /api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.link
      *              ^                     ^                         ^                   ^                         ^
      *              |                     |                         |                   |                         |
      *           endpoint           ID specifico        nome blocco dinamico     nome componente        nome sottocomponente
