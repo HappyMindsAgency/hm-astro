@@ -98,9 +98,24 @@ p {
 
 
 #footer {
-    .secondary-section {
+    .primary-section{
         p {
-            color: $primary;
+            color: white !important;
+        }
+    }
+    .secondary-section {
+        .credits {
+            a {
+                color: $hm-light-gray !important;
+                text-decoration: none;
+                transition: all .3s ease;
+            }
+            a:hover {
+                color: $primary !important;
+            }
+        }
+        p {
+            color: $hm-light-gray;
             font-size: 0.8rem;
             margin-bottom: 0;
         }

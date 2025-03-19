@@ -1,4 +1,5 @@
 ---
+import LinkPulsante from '../components/core/LinkPulsante.astro';
 const { pd } = Astro.props;
 
 interface Counter {
@@ -29,12 +30,7 @@ interface Counter {
                 ))}
                 </div>
                 
-                <a 
-                    href={pd.pulsante.link} 
-                    title={pd.pulsante.title} 
-                    target={pd.pulsante.targetBlank ? '_blank' : ''} 
-                    class={pd.pulsante.class}
-                >{pd.pulsante.testoLink}</a>
+                <LinkPulsante param={pd.pulsante} />
             </div>
 
         </div>
