@@ -3,6 +3,6 @@ import { marked } from "marked";
 const { block }  = Astro.props;
 const content = block ? marked(block) : "nothing";
 ---
-{content !== null && 
+{block && 
 <div class="block-richtext custombody" set:html={content}></div>
 }
