@@ -68,15 +68,19 @@ const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and 
     <div class="container">
         <div class="row gx-5">
             
-            {colonna.map((counter: Counter, index: number) => (
+            {colonna !== null && colonna.map((counter: Counter, index: number) => (
             <div class="col-lg-6 text-white">
-                <h2 class="fw-bold text-uppercase">{counter.titolo}</h2>
+                {counter.titolo !== null &&
+                    <h2 class="fw-bold text-uppercase">{counter.titolo}</h2>
+                }
 
                 {counter.descrizione !== null && 
                     <RichText block={counter.descrizione} />
                 }
+
                 <div class="row d-flex align-items-center">
-                {counter.immagine.map((counter: Counter, index: number) => (
+
+                {counter.immagine !== null && counter.immagine.map((counter: Counter, index: number) => (
                 <div class="col">
                     <Image 
                         src={logoUrl+counter.url} 
@@ -87,6 +91,7 @@ const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and 
                     />
                 </div>
                 ))}
+                
                 </div>
 
             </div>

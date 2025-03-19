@@ -5,6 +5,7 @@ interface Counter {
     numero: number;
     titolo: string;
     sottotitolo: string;
+    simbolo: string;
 }
 
 let rand = 0;
@@ -14,7 +15,7 @@ const { pd } = Astro.props;
 ---
 
 <div class="col-12 container-fluid riga-counter">
-    {pd.immagine ? (
+    {pd.immagine !== null ? (
     <div class="row p-4">
         <div class="col-5 d-flex justify-content-center align-items-center">
             <Image 
@@ -27,19 +28,34 @@ const { pd } = Astro.props;
         </div>
         <div class="col-7">
             <div class="row h-100 d-flex justify-content-between align-content-between">
-            {pd.counter.map((counter: Counter, index: number) => (
+            {pd.counter !== null && pd.counter.map((counter: Counter, index: number) => (
                 rand = Math.floor(Math.random() * 3) + 1,
                 <div class="col-6 counter-container">
                     <h2 class="mb-0">
+
+                        {counter.simbolo !== null && 
+                        <span class="me-1">{counter.simbolo}</span>
+                        }
+
+                        {counter.numero !== null && 
                         <span 
                             id={`counter-${index}`} 
                             class="count-up"
                             data-target={counter.numero} 
                             data-duration={rand * 1000}
                         >0</span>
+                        }
+
                     </h2>
+                    
+                    {counter.titolo !== null && 
                     <p class="mb-0 titolo">{counter.titolo}</p>
+                    }
+
+                    {counter.sottotitolo !== null && 
                     <p class="mb-0 sottotitolo">{counter.sottotitolo}</p>
+                    }
+
                 </div>
             ))}
             </div>
@@ -49,19 +65,34 @@ const { pd } = Astro.props;
     <div class="row p-4">
         <div class="col-12">
             <div class="row">
-            {pd.counter.map((counter: Counter, index: number) => (
+            {pd.counter !== null && pd.counter.map((counter: Counter, index: number) => (
                 rand = Math.floor(Math.random() * 3) + 1,
-                <div class="col-3 counter-container text-center">
+                <div class="col-6 counter-container">
                     <h2 class="mb-0">
+
+                        {counter.simbolo !== null && 
+                        <span class="me-1">{counter.simbolo}</span>
+                        }
+
+                        {counter.numero !== null && 
                         <span 
                             id={`counter-${index}`} 
                             class="count-up"
                             data-target={counter.numero} 
                             data-duration={rand * 1000}
                         >0</span>
+                        }
+
                     </h2>
+                    
+                    {counter.titolo !== null && 
                     <p class="mb-0 titolo">{counter.titolo}</p>
+                    }
+
+                    {counter.sottotitolo !== null && 
                     <p class="mb-0 sottotitolo">{counter.sottotitolo}</p>
+                    }
+
                 </div>
             ))}
             </div>

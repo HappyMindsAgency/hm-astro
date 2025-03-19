@@ -90,19 +90,33 @@ const logoUrl = import.meta.env.STRAPI_URL;
 <section id="text-and-foto" class="py-3 py-lg-5">
     <div class="container-xl">
 
-        {riga.riga.map((counter: Counter, index: number) => (
+        {riga.riga !== null && riga.riga.map((counter: Counter, index: number) => (
             <div 
                 class={counter.reverseColumn ? 'row d-flex flex-row-reverse justify-content-center' : 'row d-flex justify-content-center'} 
                 id={`text-and-slide-${index}`} 
             >
                 <div class="col-10 col-lg-7 col-xl-6 p-3 p-lg-5">
                     <div class="text-container pt-3 pb-2">
+
+                        {counter.titolo !== null && 
                         <h3 class="text-primary lh-1 fw-bold pb-3 text-uppercase">{counter.titolo}</h3>
+                        }
+
+                        {counter.paragrafo1 !== null &&
                         <RichText block={counter.paragrafo1} />
+                        }
+
                     </div>
                     <div class="text-container pt-2 pb-3">
+
+                        {counter.sottotitolo !== null && 
                         <h4 class="text-secondary lh-1 pb-3 text-uppercase">{counter.sottotitolo}</h4>
+                        }
+
+                        {counter.paragrafo2 !== null && 
                         <RichText block={counter.paragrafo2} />
+                        }
+
                     </div>
                 </div> 
 
@@ -110,8 +124,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
                     <div class="swiper mySwiperTextSlide">
                         <div class="swiper-wrapper">
 
-                            {Array.isArray(counter.slider) &&
-                            counter.slider.map((riga: Counter) => (
+                            {counter.slider !== null && Array.isArray(counter.slider) && counter.slider.map((riga: Counter) => (
                                 <div class="swiper-slide">
                                     <Image 
                                         src={logoUrl+riga.url} 

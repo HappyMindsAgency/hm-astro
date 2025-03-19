@@ -1,10 +1,13 @@
 ---
 const { param }  = Astro.props;
 ---
-
+{param !== null && 
 <a 
-    href={param.link ? param.link : ''} 
+    href={param.link ? param.link : '#'} 
     title={param.title ? param.title : ''} 
     target={param.targetBlank ? '_blank' : ''} 
-    class={param.class ? param.class : 'btn btn-primary'}>
-    {param.testoLink}</a>
+    class={param.class ? param.class : 'btn btn-primary'}
+    >
+    {param.testoLink ? param.testoLink : ''}
+</a>
+}

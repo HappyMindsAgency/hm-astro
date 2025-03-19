@@ -1,4 +1,5 @@
 ---
+import LinkPulsante from '../components/core/LinkPulsante.astro';
 import RichText from '../components/core/RichText.astro';
 import fetchApi from '../lib/strapi';
 
@@ -72,30 +73,33 @@ const social = pageDataBottomBar.iconaSocial;
         <div class="container">
             <div class="row g-5">
                 <div class="col-12 col-lg-5">
+
+                    {nomeAgenzia !== null && 
                     <h3 class="text-white mb-2 mb-lg-5 text-uppercase">{nomeAgenzia}</h3>
+                    }
+
+                    {descrizione !== null && 
                     <RichText block={descrizione} />
+                    }
                 </div>
 
                 <div class="col-12 offset-lg-2 col-lg-5 pt-2">
-                {info.map((counter: Counter, index: number) => (
+
+                    {info !== null && info.map((counter: Counter, index: number) => (
                     <p 
                     class="mb-1 text-white" 
                     id={`counter-${index}`}>
                         <i class={`me-2 counter-${counter.icona}`}></i> 
                         {counter.info}
                     </p>
-                ))}
+                    ))}
 
                     <p class="pt-4 text-white">
-                    {policies.map((counter: Counter, index: number) => (
-                        <a 
-                        href={counter.link} 
-                        class={counter.class} 
-                        title={counter.title} 
-                        target={counter.targetBlank ? '_blank' : ''}>
-                            {counter.testoLink}
-                        </a>
+
+                    {policies !== null && policies.map((counter: Counter, index: number) => (
+                        <LinkPulsante param={counter} />
                     ))}
+
                     </p>
                 </div>
             </div>
@@ -105,9 +109,14 @@ const social = pageDataBottomBar.iconaSocial;
 
     <div class="container secondary-section">
         <div class="row">
+
+            {credits !== null && 
             <div class="col-12 col-lg-6 py-4 credits">
                 <RichText block={credits} />
             </div>
+            }
+
+            {social !== null && 
             <div class="col-12 col-lg-6">
                 <div class="row justify-content-lg-end pt-4 mb-4 mb-lg-0">
                     {social.map((counter: Counter) => (
@@ -119,6 +128,7 @@ const social = pageDataBottomBar.iconaSocial;
                     ))}
                 </div>
             </div>
+            }
         </div>
         
     </div>

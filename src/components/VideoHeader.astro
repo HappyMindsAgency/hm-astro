@@ -9,16 +9,33 @@ const videoUrl = `${import.meta.env.STRAPI_URL}${pd.video.url}`;
 
 <div class="video-header mb-5" id="testata">
     <div class="d-flex justify-content-center align-items-center" id="video-testata">
+
+        {videoUrl !== null && 
         <video autoplay loop muted playsinline>
             <source src={videoUrl} type="video/mp4" />
         </video>
+        }
+
         <div class="d-flex flex-column justify-content-center align-items-center" id="contenuto-testata">
+
+            {pd.titolo !== null && 
             <div class="titolo-header bg-primary p-2">
                 <h1 class="text-uppercase fw-semibold text-white">{pd.titolo}</h1>
             </div>
+            }
+
+            {pd.sottotitolo !== null && 
             <h2 class="fs-2 text-uppercase lh-1 my-3 text-white">{pd.sottotitolo}</h2>
-            {pd.descrizione !== null && <RichText block={pd.descrizione}/>}
-            {pd.pulsante !== null && <LinkPulsante param={pd.pulsante} />}
+            }
+
+            {pd.descrizione !== null && 
+            <RichText block={pd.descrizione}/>
+            }
+
+            {pd.pulsante !== null && 
+            <LinkPulsante param={pd.pulsante} />
+            }
+            
         </div>
     </div>
 </div>

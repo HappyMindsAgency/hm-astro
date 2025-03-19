@@ -16,25 +16,31 @@ interface Counter {
         <div class="row">
 
             <div class="col-lg-7">
+
+                {pd.titolo !== null &&
                 <h2 class="text-primary lh-1 fw-bold fs-big text-uppercase">
                     {pd.titolo}
                 </h2>
+                }
+
+                {pd.sottotitolo !== null &&
                 <p class="fw-bold fs-4">{pd.sottotitolo}</p>
+                }
+
             </div>
 
             <div class="col-lg-5">
-                <div class="text-container pb-4 pt-2">
-                <!-- {pd.descrizione.map((counter: Counter) => (
-                    <p class="fs-6">
-                        {counter.children[0].text}
-                    </p>
-                ))} -->
+
                 {pd.descrizione !== null && 
+                <div class="text-container pb-4 pt-2">
                     <RichText block={pd.descrizione} />
-                }
                 </div>
+                }
                 
-                <LinkPulsante param={pd.pulsante} />
+                {pd.pulsante !== null && 
+                    <LinkPulsante param={pd.pulsante} />
+                }
+
             </div>
 
         </div>

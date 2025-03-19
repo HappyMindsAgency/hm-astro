@@ -7,7 +7,7 @@ import RichText from '../components/core/RichText.astro';
     <div class="container">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
             <div class="col col-lg-9 text-center">
-                {pd.titolo !== null && <h1 class="fw-bold text-uppercase">Contact Us</h1>}
+                {pd.titolo !== null && <h1 class="fw-bold text-uppercase">{pd.titolo}</h1>}
                 {pd.descrizione !== null && <RichText block={pd.descrizione} />}
             </div>
         </div>

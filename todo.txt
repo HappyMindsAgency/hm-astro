@@ -3,5 +3,5 @@
 - [V] Implementare rich text editor classico al posto di quello JSON nei componenti dove viene usato
 - [V] Impostare variabile globale con ID della landing page specifica nel file .env
 - [V] Rendere dinamico il retrieve dell'ID nel componente ClientSlider.astro
-- [ ] Aggiungere campo in componenti singoli di RigaCounter per implementare dove si vuole il simbolo prima del numero (lunghezza massima del testo 1 carattere)
-- [ ] Implementare ovunque controllo sull'esistenza di un contenuto da aggiungere in modo da non causare bug
+- [V] Aggiungere campo in componenti singoli di RigaCounter per implementare dove si vuole il simbolo prima del numero (lunghezza massima del testo 1 carattere)
+- [V] Implementare ovunque controllo sull'esistenza di un contenuto da aggiungere in modo da non causare bug
