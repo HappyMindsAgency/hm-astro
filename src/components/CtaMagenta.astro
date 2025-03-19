@@ -1,19 +1,97 @@
 ---
+import RichText from '../components/core/RichText.astro';
+import LinkPulsante from '../components/core/LinkPulsante.astro';
+const { pd, landingID } = Astro.props;
+import { Image } from "astro:assets";
+import fetchApi from '../lib/strapi';
 
+// Define the interface for the pageData objectsContent[{ 
+interface Content {
+    progetti: { 
+        id: number,
+        titolo: string,
+        sottotitolo: string,
+        descrizione: string,
+        immagine: [{}],
+        ctaFormat: [{}],
+    } 
+};
+interface CtaMain {
+    content?: Content[];
+};
+interface Counter {
+    immagine: {
+        url: string;
+        alternativeText: string;
+        width: number;
+        height: number;
+    },
+    titolo: string,
+    sottotitolo: string,
+    descrizione: string,
+    url: string,
+    alternativeText: string,
+    width: number,
+    height: number,
+    ctaProgetto: [],
+};
+
+/**
+ * esempio link chiamata API
+ * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
+ */
+const ctaMain: CtaMain[] = await fetchApi({
+	endpoint: `landing-pages/${landingID}`, 
+	page: '', 
+	wrappedByKey: 'data',
+    query: {}, 
+    wrappedByList: false, 
+    locale: '', 
+
+    // popolare con il nome del contenitore dinamico solo nel caso si voglia popolare un componente al suo interno a un livello dal secondo in poi
+    secondLevel: 'content', 
+    secondLevelQuery: '[on][shared.cta-magenta]', 
+    secondLevelTarget: 'colonna.immagine', 
+});
+
+//let riga = format.content[0];
+
+const logoUrl = import.meta.env.STRAPI_URL;
+let cont = 0;
+let dimCol = 0;
+
+const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and a fallback to an empty array
+
+//console.log(colonna.length);
 ---
 <section id="cta-magenta" class="py-5">
     <div class="container">
         <div class="row gx-5">
+            
+            {colonna.map((counter: Counter, index: number) => (
             <div class="col-lg-6 text-white">
-                <h2 class="fw-bold text-uppercase">Title 1</h2>
-                <p class="text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia</p>
-                <img src="http://img.dummy-image-generator.com/buildings/dummy-400x120-Roof.jpg" alt="Image 1" class="img-fluid">
+                <h2 class="fw-bold text-uppercase">{counter.titolo}</h2>
+
+                {counter.descrizione !== null && 
+                    <RichText block={counter.descrizione} />
+                }
+                <div class="row d-flex align-items-center">
+                {counter.immagine.map((counter: Counter, index: number) => (
+                <div class="col">
+                    <Image 
+                        src={logoUrl+counter.url} 
+                        class="img-fluid w-auto" 
+                        alt={counter.alternativeText ? counter.alternativeText : ""} 
+                        width={counter.width} 
+                        height={counter.height} 
+                    />
+                </div>
+                ))}
+                </div>
+
             </div>
-            <div class="col-lg-6 text-white">
-                <h2 class="fw-bold text-uppercase">Title 2</h2>
-                <p class="text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia</p>
-                <img src="http://img.dummy-image-generator.com/buildings/dummy-400x120-Roof.jpg" alt="Image 1" class="img-fluid">
-            </div>
+            ))}
+
         </div>
     </div>
 </section>

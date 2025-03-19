@@ -78,20 +78,21 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
             {progetti.map((counter: Counter, index: number) => (
                 <div class="col col-lg-4" id={`progetto-${index+1}`}>
                     <div class="img-container w-100 pb-2">
+                        {counter.immagine.map((counter: Counter, index: number) => (
                         <Image 
-                            src={logoUrl+counter.immagine.url} 
+                            src={logoUrl+counter.url} 
                             class="img-fluid rounded-4" 
-                            alt={counter.immagine.alternativeText ? counter.immagine.alternativeText : ""} 
-                            width={counter.immagine.width} 
-                            height={counter.immagine.height} 
+                            alt={counter.alternativeText ? counter.alternativeText : ""} 
+                            width={counter.width} 
+                            height={counter.height} 
                         />
+                        ))}
                     </div>
                     <div class="content-container w-100 pb-5">
                         <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>
                         <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>
                         <RichText block={counter.descrizione} />
 
-                        {console.log(counter.ctaProgetto)}
                         {counter.ctaProgetto !== null && 
                             <LinkPulsante param={counter.ctaProgetto} />
                         }
@@ -105,7 +106,11 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
         <div class="row d-flex justify-content-center">
 
             <div class="col col-lg-4 text-center pt-5">
-                {pd.ctaFormat !== null && <LinkPulsante param={pd.ctaFormat} />}
+
+                {pd.ctaFormat !== null && 
+                    <LinkPulsante param={pd.ctaFormat} />
+                }
+
             </div>
 
         </div>

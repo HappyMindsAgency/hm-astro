@@ -1,21 +1,34 @@
 ---
+const { pd } = Astro.props;
+import { Image } from "astro:assets";
+import RichText from '../components/core/RichText.astro';
 import logo from '../assets/images/happy-minds-logo-verticale-colori-payoff.png';
 import imgMagenta from '../assets/images/we-are-magenta.png';
+const logoUrl = import.meta.env.STRAPI_URL;
+
+//console.log(pd);
 ---
 <section id="who-we-are" class="py-4 mt-5">
     <div class="container">
         <div class="row pt-3">
             <div class="col-12 col-lg-5">
-                <h2 class="text-uppercase text-primary fw-bold">Who we are</h2>
-                <p>
-                    Decens thermae suspendo surculus cubicularis suasoria cauda. Vilis arcus vester vilis vilitas venustas vilis adicio adinventitias. Deprimo virgo vitiosus.<br/>
-                    <strong>Ager contego autem quo consectetur video aliquam tamdiu virga</strong>. Sed cibus illum deprimo denique vae blanditiis denego cauda. Vicissitudo crustulum.
-                </p>
+                <h2 class="text-uppercase text-primary fw-bold">{pd.titolo}</h2>
+                {pd.paragrafo1 !== null && <RichText block={pd.paragrafo1} />}
             </div>
 
             <div class="col-12 col-lg-3">
                 <div class="img-container p-3 p-lg-5 w-100">
-                    <img src={logo.src} width={logo.width} height={logo.height} alt="Logo HappyMinds" class="img-fluid">
+
+                    {pd.logo !== null &&
+                    <Image 
+                        src={logoUrl+pd.logo.url} 
+                        class="img-fluid" 
+                        alt={pd.logo.alternativeText ? pd.logo.alternativeText : ""} 
+                        width={pd.logo.width} 
+                        height={pd.logo.height} 
+                    />
+                    }
+
                 </div>                
             </div>
 
@@ -24,16 +37,27 @@ import imgMagenta from '../assets/images/we-are-magenta.png';
         <div class="row pt-5">
             <div class="col-12 col-lg-7">
                 <div class="img-container p-3 w-100">
-                    <img src={imgMagenta.src} alt="We are magenta" class="img-fluid rounded-4">
+
+                    {pd.company !== null &&
+                    <Image 
+                        src={logoUrl+pd.company.url} 
+                        class="img-fluid rounded-4" 
+                        alt={pd.company.alternativeText ? pd.company.alternativeText : ""} 
+                        width={pd.company.width} 
+                        height={pd.company.height} 
+                    />
+                    }
+                    
                 </div>
             </div>
 
             <div class="col-12 col-lg-4">
-                <h2 class="text-uppercase text-primary fw-bold">We are magenta</h2>
-                <p>
-                    Decens thermae suspendo surculus cubicularis suasoria cauda. Vilis arcus vester vilis vilitas venustas vilis adicio adinventitias. Deprimo virgo vitiosus.<br/>
-                    <strong>Ager contego autem quo consectetur video aliquam tamdiu virga</strong>. Sed cibus illum deprimo denique vae blanditiis denego cauda. Vicissitudo crustulum.
-                </p>
+                <h2 class="text-uppercase text-primary fw-bold">{pd.sottotitolo}</h2>
+
+                {pd.paragrafo2 !== null && 
+                <RichText block={pd.paragrafo2} />
+                }
+                
             </div>
         </div>
     </div>
