@@ -2,6 +2,7 @@
 $primary: #d0005a; // Nuovo colore primario
 $hm-light-gray: #4d4d4d;
 $font-poppins: 'Poppins', sans-serif; // Nuovo font
+$font-barlow: 'Barlow Condensed', sans-serif;
 $border-radius: 50rem; // Nuovo raggio di bordo
 
 $h1-font-size: clamp(2.25rem, 1.7rem + 2.75vw, 5rem);
@@ -28,6 +29,12 @@ p {
     font-size: clamp(2rem, 1.525rem + 2.375vw, 4.375rem) !important;
 }
 
+.nav-item {
+    a {
+        font-family: $font-barlow;
+    }
+}
+
 #contenuto-testata {
     h2 {
         font-size: clamp(1.125rem, 0.9rem + 1.125vw, 2.25rem) !important;
@@ -44,6 +51,16 @@ p {
         background-repeat: no-repeat;
     }
     
+}
+
+#text-and-foto {
+    h4 {
+        font-size: clamp(1rem, 0.875rem + 0.625vw, 1.625rem);
+    }
+
+    p {
+        font-size: clamp(0.75rem, 0.7rem + 0.25vw, 1rem) !important;
+    }
 }
 
 #slider-clienti {
@@ -115,14 +132,14 @@ p {
             }
         }
         p {
-            color: $hm-light-gray;
+            color: $primary;;
             font-size: 0.8rem;
             margin-bottom: 0;
         }
 
         svg {
             fill: $primary;
-            height: 1.8rem;
+            height: 1.5rem;
         }
     }
 }

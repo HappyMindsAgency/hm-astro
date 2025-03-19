@@ -3,8 +3,8 @@ const { param }  = Astro.props;
 ---
 
 <a 
-    href={param.link} 
-    title={param.title} 
+    href={param.link ? param.link : ''} 
+    title={param.title ? param.title : ''} 
     target={param.targetBlank ? '_blank' : ''} 
-    class={param.class}
->{param.testoLink}</a>
+    class={param.class ? param.class : 'btn btn-primary'}>
+    {param.testoLink}</a>
