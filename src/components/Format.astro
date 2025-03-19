@@ -1,5 +1,6 @@
 ---
 import RichText from '../components/core/RichText.astro';
+import LinkPulsante from '../components/core/LinkPulsante.astro';
 const { pd, landingID } = Astro.props;
 import { Image } from "astro:assets";
 import fetchApi from '../lib/strapi';
@@ -12,6 +13,7 @@ interface Content {
         sottotitolo: string,
         descrizione: string,
         immagine: [{}],
+        ctaFormat: [{}],
     } 
 };
 interface Format {
@@ -31,6 +33,7 @@ interface Counter {
     alternativeText: string,
     width: number,
     height: number,
+    ctaProgetto: [],
 };
 
 /**
@@ -48,7 +51,7 @@ const format: Format[] = await fetchApi({
     // popolare con il nome del contenitore dinamico solo nel caso si voglia popolare un componente al suo interno a un livello dal secondo in poi
     secondLevel: 'content', 
     secondLevelQuery: '[on][shared.format]', 
-    secondLevelTarget: 'progetti.immagine', 
+    secondLevelTarget: ['progetti.immagine', 'progetti.ctaProgetto'], 
 });
 
 //let riga = format.content[0];
@@ -58,7 +61,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
 const content = format?.content[0] || []; // Use optional chaining and a fallback to an empty array
 const progetti = format?.content[0].progetti || []; // Use optional chaining and a fallback to an empty array
 
-//console.log(content);
+//console.log(progetti);
 ---
 
 <section id="format" class="py-5">
@@ -87,6 +90,12 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
                         <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>
                         <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>
                         <RichText block={counter.descrizione} />
+
+                        {console.log(counter.ctaProgetto)}
+                        {counter.ctaProgetto !== null && 
+                            <LinkPulsante param={counter.ctaProgetto} />
+                        }
+
                     </div>
                 </div>
             ))}
@@ -96,7 +105,7 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
         <div class="row d-flex justify-content-center">
 
             <div class="col col-lg-4 text-center pt-5">
-                <a href="#contattaci" class="btn btn-primary fw-bold px-5 py-2" >Contattaci</a>
+                {pd.ctaFormat !== null && <LinkPulsante param={pd.ctaFormat} />}
             </div>
 
         </div>
