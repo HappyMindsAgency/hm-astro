@@ -10,6 +10,7 @@ import CallToAction from '../components/CallToAction.astro';
 import TextAndSlide from '../components/TextAndSlide.astro';
 import Format from '../components/Format.astro';
 import CtaMagenta from '../components/CtaMagenta.astro';
+import FormLead from '../components/FormLead.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -49,5 +50,7 @@ const landingID = import.meta.env.LANDING_ID;
 				{pd.__component === 'shared.cta-magenta' && <CtaMagenta {pd} {landingID} />}
 			</slot>
 		))
+		
 	}
+	<FormLead />
 </Layout>

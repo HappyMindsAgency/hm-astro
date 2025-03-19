@@ -1,0 +1,104 @@
+---
+---
+
+<section id="lead" class="py-5">
+    <div class="container">
+        <div class="row d-lg-flex justify-content-lg-center pb-5">
+            <div class="col col-lg-9 text-center">
+                <h1 class="fw-bold text-uppercase">Contact Us</h1>
+                <p>
+                    Vuoi dare il via a un nuovo progetto di marketing turistico per la tua destinazione?<br>
+                    Raccontaci cosa hai in mente per ricevere il nostro portfolio completo e fissare una call conoscitiva con le Menti Felici!
+                </p>
+            </div>
+        </div>
+
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col col-lg-6">
+                <label for="nome" class="form-label">Nome <sup class="text-primary fw-bold">*</sup></label>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui il tuo nome" id="nome" name="nome" required>
+                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
+            </div>
+            <div class="col col-lg-6">
+                <label for="cognome" class="form-label">Cognome <sup class="text-primary fw-bold">*</sup></label>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Scrivi qui il tuo cognome" id="cognome" name="cognome" required>
+                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
+            </div>
+
+            <div class="col-12">
+                <label for="azienda" class="form-label">Azienda, ente, istituzione o associazione <sup class="text-primary fw-bold">*</sup></label>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Azienda, ente, istituzione, associazione, case, libri, auto, fogli di giornale..." name="azienda" id="azienda" required>
+                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
+            </div>
+
+            <div class="col col-lg-6">
+                <label for="email" class="form-label">Indirizzo mail <sup class="text-primary fw-bold">*</sup></label>
+                <input type="email" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui un tuo contatto mail" id="email" name="email" required />
+                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci un indirizzo email corretto!</div>
+            </div>
+
+            <div class="col col-lg-6">
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Un contatto telefonico" aria-label="Telefono" name="telefono">
+            </div> 
+            
+            <div class="col-12">
+                <label for="servizi" class="form-label">Quali servizi ti interessano? <sup class="text-primary fw-bold">*</sup></label>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Hai presente le cose belle qui sopra?" name="servizi" id="servizi" required/>
+                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
+            </div>
+
+            <div class="col-12">
+                <label for="format" class="form-label">Quali format vorresti portare nel tuo territorio? <sup class="text-primary fw-bold">*</sup></label>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Una Ciclomangia io, te e Felix?" name="format" id="format" required/>
+                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
+            </div>
+
+            <div class="col-12">
+                <label for="messaggio" class="form-label">Messaggio</label>
+                <textarea class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Lasciaci un messaggio" aria-label="Lasciaci un messaggio" name="messaggio"></textarea>
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-imput" type="checkbox" value="" id="flexCheckDefault" name="privacy" required/>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Accetto la <a href="#">privacy policy</a>
+                    </label>
+                    <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Devi accettare la privacy policy</div>
+                </div>
+                
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary rounded rounded-2 text-uppercase fw-bold px-5">Invia</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<script is:inline>
+    (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        } else {
+            // Send the form data to the server
+            console.log('Form is valid! Send the request to the server...')
+            event.preventDefault() 
+            event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+        }, false)
+    })
+    })()
+</script>
