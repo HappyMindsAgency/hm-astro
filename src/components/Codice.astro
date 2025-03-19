@@ -1,7 +1,6 @@
 ---
-
 const { pd } = Astro.props;
-
+import RichText from '../components/RichText.astro';
 ---
 
 
@@ -9,7 +8,7 @@ const { pd } = Astro.props;
     <div class="container pt-5" id="contattaci">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
-                <div set:html={pd.Code}></div>
+                <RichText block={pd.Code} />
             </div>
         </div>
     </div>

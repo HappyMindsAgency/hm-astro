@@ -44,6 +44,7 @@ const landingID = import.meta.env.LANDING_ID;
 				{pd.__component === 'shared.slider-clienti' && <ClientSlider {pd} {landingID} />}
 				{pd.__component === 'shared.call-to-action' && <CallToAction {pd} />}
 				{pd.__component === 'shared.container-text-and-slide' && <TextAndSlide {pd} {landingID} />}
+				{pd.__component === 'shared.format' && <Format {pd} {landingID} />}
 				{pd.__component === 'shared.codice' && <Codice {pd} />}
 			</slot>
 		))

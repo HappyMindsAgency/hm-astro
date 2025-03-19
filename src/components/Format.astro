@@ -1,32 +1,94 @@
 ---
-import placeholder from '../assets/images/placeholder-format.png'
-const items = Array.from({ length: 5});
+import RichText from '../components/RichText.astro';
+const { pd, landingID } = Astro.props;
+import { Image } from "astro:assets";
+import fetchApi from '../lib/strapi';
+
+// Define the interface for the pageData objectsContent[{ 
+interface Content {
+    progetti: { 
+        id: number,
+        titolo: string,
+        sottotitolo: string,
+        descrizione: string,
+        immagine: [{}],
+    } 
+};
+interface Format {
+    content?: Content[];
+};
+interface Counter {
+    immagine: {
+        url: string;
+        alternativeText: string;
+        width: number;
+        height: number;
+    },
+    titolo: string,
+    sottotitolo: string,
+    descrizione: string,
+    url: string,
+    alternativeText: string,
+    width: number,
+    height: number,
+};
+
+/**
+ * esempio link chiamata API
+ * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
+ */
+const format: Format[] = await fetchApi({
+	endpoint: `landing-pages/${landingID}`, 
+	page: '', 
+	wrappedByKey: 'data',
+    query: {}, 
+    wrappedByList: false, 
+    locale: '', 
+
+    // popolare con il nome del contenitore dinamico solo nel caso si voglia popolare un componente al suo interno a un livello dal secondo in poi
+    secondLevel: 'content', 
+    secondLevelQuery: '[on][shared.format]', 
+    secondLevelTarget: 'progetti.immagine', 
+});
+
+//let riga = format.content[0];
+
+const logoUrl = import.meta.env.STRAPI_URL;
+
+const content = format?.content[0] || []; // Use optional chaining and a fallback to an empty array
+const progetti = format?.content[0].progetti || []; // Use optional chaining and a fallback to an empty array
+
+//console.log(content);
 ---
 
 <section id="format" class="py-5">
     <div class="container">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
             <div class="col col-lg-9 text-center">
-                <h1 class="fw-bold text-uppercase">Format</h1>
-                <p>Decens thermae suspendo surculus cubicularis suasoria cauda. Vilis arcus vester vilis vilitas venustas vilis adicio adinventitias. Deprimo virgo vitiosus.<br/>
-                    Ager contego autem quo consectetur video aliquam tamdiu virga. Sed cibus illum deprimo denique vae blanditiis denego cauda. Vicissitudo crustulum corrigo compono nobis terror cado adhuc apparatus crapula.</p>
+                <h1 class="fw-bold text-uppercase">{content.titolo}</h1>
+                <RichText block={content.descrizione} />
             </div>
         </div>
 
         <div class="row d-flex justify-content-center">
 
-            {items.map((_, index) => (
-            <div class="col col-lg-4" id={`item-${index}`}>
-                <div class="img-container w-100 pb-2">
-                    <img src={placeholder.src} class="img-fluid" title="Titolo del progetto" alt="Immagine del progetto">
+            {progetti.map((counter: Counter, index: number) => (
+                <div class="col col-lg-4" id={`progetto-${index+1}`}>
+                    <div class="img-container w-100 pb-2">
+                        <Image 
+                            src={logoUrl+counter.immagine.url} 
+                            class="img-fluid rounded-4" 
+                            alt={counter.immagine.alternativeText ? counter.immagine.alternativeText : ""} 
+                            width={counter.immagine.width} 
+                            height={counter.immagine.height} 
+                        />
+                    </div>
+                    <div class="content-container w-100 pb-5">
+                        <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>
+                        <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>
+                        <RichText block={counter.descrizione} />
+                    </div>
                 </div>
-                <div class="content-container w-100 pb-5">
-                    <h4 class="fw-bold lh-1 text-uppercase">Titolo del progetto</h4>
-                    <p class="fs-small fw-bold text-primary">Sottotitolo del progetto</p>
-                    <p>Decens thermae suspendo surculus cubicularis suasoria cauda. Vilis arcus vester vilis vilitas venustas vilis adicio adinventitias. Deprimo virgo vitiosus.
-                        Ager contego autem quo consectetur video aliquam tamdiu virga. </p>
-                </div>
-            </div>
             ))}
 
         </div>
