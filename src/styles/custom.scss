@@ -122,13 +122,13 @@ p {
     }
     .secondary-section {
         .credits {
-            a {
-                color: $hm-light-gray !important;
-                text-decoration: none;
-                transition: all .3s ease;
-            }
-            a:hover {
+
+            p {
                 color: $primary !important;
+
+                a {
+                    text-decoration: none;
+                }
             }
         }
         p {
