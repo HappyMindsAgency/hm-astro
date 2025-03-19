@@ -118,7 +118,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
     const swiper = new Swiper('.swiper', {
         slidesPerView: 2, 
         spaceBetween: 52, 
-        loop: true,
+        /* loop: true, */
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
@@ -127,6 +127,10 @@ const logoUrl = import.meta.env.STRAPI_URL;
             el: '.swiper-pagination',
             type: 'bullets',
             clickable: true,
+        },
+        autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
         },
 
         breakpoints: {

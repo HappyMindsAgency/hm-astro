@@ -39,6 +39,13 @@ p {
     h2 {
         font-size: clamp(1.125rem, 0.9rem + 1.125vw, 2.25rem) !important;
     }
+    p {
+        color: white !important;
+        font-weight: 300 !important;
+        strong {
+            font-weight: 700;
+        }
+    }
 }
 
 #who-we-are {

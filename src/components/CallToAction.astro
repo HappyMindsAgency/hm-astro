@@ -1,4 +1,5 @@
 ---
+import RichText from '../components/core/RichText.astro';
 import LinkPulsante from '../components/core/LinkPulsante.astro';
 const { pd } = Astro.props;
 
@@ -23,11 +24,14 @@ interface Counter {
 
             <div class="col-lg-5">
                 <div class="text-container pb-4 pt-2">
-                {pd.descrizione.map((counter: Counter) => (
+                <!-- {pd.descrizione.map((counter: Counter) => (
                     <p class="fs-6">
                         {counter.children[0].text}
                     </p>
-                ))}
+                ))} -->
+                {pd.descrizione !== null && 
+                    <RichText block={pd.descrizione} />
+                }
                 </div>
                 
                 <LinkPulsante param={pd.pulsante} />

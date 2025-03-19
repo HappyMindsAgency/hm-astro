@@ -1,4 +1,5 @@
 ---
+import { onMount } from "astro/client";
 import RichText from '../components/core/RichText.astro';
 const { pd, landingID } = Astro.props;
 import { Image } from "astro:assets";
@@ -79,28 +80,12 @@ const textSlide: TextSlide[] = await fetchApi({
 });
 
 let riga = textSlide.content[0];
+let cont = riga.riga.length;
 
 const logoUrl = import.meta.env.STRAPI_URL;
 
-//console.log(riga.riga);
+//console.log(riga.riga.length);
 ---
-<script type="module">
-    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
-
-    const mySwiperTextSlide = new Swiper('.mySwiperTextSlide', {
-        slidesPerView: 1,
-        spaceBetween: 50,
-        loop: true,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-</script>
 
 <section id="text-and-foto" class="py-3 py-lg-5">
     <div class="container-xl">
@@ -122,7 +107,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
                 </div> 
 
                 <div class="col-8 offset-lg-0 col-lg-5 col-xl-6 p-3 p-lg-5">
-                    <div class="swiper mySwiperTextSlide ">
+                    <div class="swiper mySwiperTextSlide">
                         <div class="swiper-wrapper">
 
                             {Array.isArray(counter.slider) &&
@@ -150,3 +135,27 @@ const logoUrl = import.meta.env.STRAPI_URL;
 
     </div>
 </section>
+
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+        
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".mySwiperTextSlide").forEach((swiperEl) => {
+            new Swiper(swiperEl, {
+                /* loop: true, */
+                navigation: {
+                    nextEl: swiperEl.querySelector(".swiper-button-next"),
+                    prevEl: swiperEl.querySelector(".swiper-button-prev"),
+                },
+                autoplay: {
+                    delay: Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: swiperEl.querySelector(".swiper-pagination"),
+                    clickable: true,
+                },
+            });
+        });
+    });
+</script>
