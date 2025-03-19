@@ -68,17 +68,17 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
     <div class="container">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
             <div class="col col-lg-9 text-center">
-                <h1 class="fw-bold text-uppercase">{content.titolo}</h1>
-                <RichText block={content.descrizione} />
+                {content.titolo !== null && <h1 class="fw-bold text-uppercase">{content.titolo}</h1>}
+                {content.descrizione !== null && <RichText block={content.descrizione} />}
             </div>
         </div>
 
         <div class="row d-flex justify-content-center">
 
-            {progetti.map((counter: Counter, index: number) => (
+            {progetti !== null && progetti.map((counter: Counter, index: number) => (
                 <div class="col col-lg-4" id={`progetto-${index+1}`}>
                     <div class="img-container w-100 pb-2">
-                        {counter.immagine.map((counter: Counter, index: number) => (
+                        {counter.immagine !== null && counter.immagine.map((counter: Counter, index: number) => (
                         <Image 
                             src={logoUrl+counter.url} 
                             class="img-fluid rounded-4" 
@@ -89,9 +89,9 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
                         ))}
                     </div>
                     <div class="content-container w-100 pb-5">
-                        <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>
-                        <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>
-                        <RichText block={counter.descrizione} />
+                        {counter.titolo !== null && <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>}
+                        {counter.sottotitolo !== null && <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>}
+                        {counter.descrizione !== null && <RichText block={counter.descrizione} />}
 
                         {counter.ctaProgetto !== null && 
                             <LinkPulsante param={counter.ctaProgetto} />
