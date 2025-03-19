@@ -4,21 +4,21 @@ import RichText from '../components/core/RichText.astro';
 ---
 
 <section id="contattaci" class="py-5">
-    <div class="container">
+    <div class="container col-11 m-auto">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
-            <div class="col col-lg-9 text-center">
+            <div class="col-12 col-lg-9 text-center">
                 {pd.titolo !== null && <h1 class="fw-bold text-uppercase">{pd.titolo}</h1>}
                 {pd.descrizione !== null && <RichText block={pd.descrizione} />}
             </div>
         </div>
 
         <form class="row g-3 needs-validation" novalidate>
-            <div class="col col-lg-6">
+            <div class="col-12 col-lg-6">
                 <label for="nome" class="form-label">Nome <sup class="text-primary fw-bold">*</sup></label>
                 <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui il tuo nome" id="nome" name="nome" required>
                 <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
             </div>
-            <div class="col col-lg-6">
+            <div class="col-12 col-lg-6">
                 <label for="cognome" class="form-label">Cognome <sup class="text-primary fw-bold">*</sup></label>
                 <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Scrivi qui il tuo cognome" id="cognome" name="cognome" required>
                 <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
@@ -30,13 +30,13 @@ import RichText from '../components/core/RichText.astro';
                 <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
             </div>
 
-            <div class="col col-lg-6">
+            <div class="col-12 col-lg-6">
                 <label for="email" class="form-label">Indirizzo mail <sup class="text-primary fw-bold">*</sup></label>
                 <input type="email" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui un tuo contatto mail" id="email" name="email" required />
                 <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci un indirizzo email corretto!</div>
             </div>
 
-            <div class="col col-lg-6">
+            <div class="col-12 col-lg-6">
                 <label for="telefono" class="form-label">Telefono</label>
                 <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Un contatto telefonico" aria-label="Telefono" name="telefono">
             </div> 

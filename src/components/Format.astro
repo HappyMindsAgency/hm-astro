@@ -76,8 +76,8 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
         <div class="row d-flex justify-content-center">
 
             {progetti !== null && progetti.map((counter: Counter, index: number) => (
-                <div class="col col-lg-4" id={`progetto-${index+1}`}>
-                    <div class="img-container w-100 pb-2">
+                <div class="col-11 col-lg-4" id={`progetto-${index+1}`}>
+                    <div class="img-container w-100 pb-4 pb-lg-2">
                         {counter.immagine !== null && counter.immagine.map((counter: Counter, index: number) => (
                         <Image 
                             src={logoUrl+counter.url} 
@@ -88,7 +88,7 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
                         />
                         ))}
                     </div>
-                    <div class="content-container w-100 pb-5">
+                    <div class="content-container w-100 pb-5 mx-1">
                         {counter.titolo !== null && <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>}
                         {counter.sottotitolo !== null && <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>}
                         {counter.descrizione !== null && <RichText block={counter.descrizione} />}

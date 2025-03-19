@@ -69,7 +69,7 @@ const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and 
         <div class="row gx-5">
             
             {colonna !== null && colonna.map((counter: Counter, index: number) => (
-            <div class="col-lg-6 text-white">
+            <div class="col-11 col-lg-6 text-white m-auto py-3">
                 {counter.titolo !== null &&
                     <h2 class="fw-bold text-uppercase">{counter.titolo}</h2>
                 }

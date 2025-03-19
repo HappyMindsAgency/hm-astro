@@ -120,7 +120,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
                     </div>
                 </div> 
 
-                <div class="col-8 offset-lg-0 col-lg-5 col-xl-6 p-3 p-lg-5">
+                <div class="col-11 offset-lg-0 col-lg-5 col-xl-6 p-3 p-lg-5 m-auto">
                     <div class="swiper mySwiperTextSlide">
                         <div class="swiper-wrapper">
 
@@ -138,8 +138,8 @@ const logoUrl = import.meta.env.STRAPI_URL;
 
                         </div>
                         
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
+                        {/* <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div> */}
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>  
@@ -156,10 +156,10 @@ const logoUrl = import.meta.env.STRAPI_URL;
         document.querySelectorAll(".mySwiperTextSlide").forEach((swiperEl) => {
             new Swiper(swiperEl, {
                 /* loop: true, */
-                navigation: {
+                /* navigation: {
                     nextEl: swiperEl.querySelector(".swiper-button-next"),
                     prevEl: swiperEl.querySelector(".swiper-button-prev"),
-                },
+                }, */
                 autoplay: {
                     delay: Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000,
                     disableOnInteraction: false,
