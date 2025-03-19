@@ -1,15 +1,14 @@
 ---
+const { pd, landingID } = Astro.props;
+import RichText from '../components/core/RichText.astro';
 ---
 
 <section id="contattaci" class="py-5">
     <div class="container">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
             <div class="col col-lg-9 text-center">
-                <h1 class="fw-bold text-uppercase">Contact Us</h1>
-                <p>
-                    Vuoi dare il via a un nuovo progetto di marketing turistico per la tua destinazione?<br>
-                    Raccontaci cosa hai in mente per ricevere il nostro portfolio completo e fissare una call conoscitiva con le Menti Felici!
-                </p>
+                {pd.titolo !== null && <h1 class="fw-bold text-uppercase">Contact Us</h1>}
+                {pd.descrizione !== null && <RichText block={pd.descrizione} />}
             </div>
         </div>
 

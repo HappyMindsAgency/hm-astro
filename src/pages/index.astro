@@ -48,9 +48,9 @@ const landingID = import.meta.env.LANDING_ID;
 				{pd.__component === 'shared.format' && <Format {pd} {landingID} />}
 				{pd.__component === 'lp-destination-marketing.presentation' && <Presentation {pd} />}
 				{pd.__component === 'shared.cta-magenta' && <CtaMagenta {pd} {landingID} />}
+				{pd.__component === 'shared.form-landing' && <FormLead {pd} {landingID} />}
 			</slot>
 		))
 		
 	}
-	<FormLead />
 </Layout>
