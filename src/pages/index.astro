@@ -10,6 +10,7 @@ import Codice from '../components/Codice.astro';
 import CallToAction from '../components/CallToAction.astro';
 import TextAndSlide from '../components/TextAndSlide.astro';
 import Format from '../components/Format.astro';
+import CtaMagenta from '../components/CtaMagenta.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -49,7 +50,6 @@ const landingID = import.meta.env.LANDING_ID;
 			</slot>
 		))
 	}
+	<CtaMagenta />
 	<Presentation />
-	<Format />
-
 </Layout>
