@@ -4,7 +4,10 @@ $hm-light-gray: #4d4d4d;
 $font-poppins: 'Poppins', sans-serif; // Nuovo font
 $border-radius: 50rem; // Nuovo raggio di bordo
 
-$h2-font-size: clamp(1.625rem, 1.2rem + 2.125vw, 3.75rem);
+$h1-font-size: clamp(2.25rem, 1.7rem + 2.75vw, 5rem);
+$h2-font-size: clamp(2rem, 1.65rem + 1.75vw, 3.75rem);
+$h3-font-size: clamp(1.75rem, 1.5rem + 1.25vw, 3rem);
+$h4-font-size: clamp(1.25rem, 1.125rem + 0.75vw, 2rem);
 
 $body-color: $hm-light-gray; // Nuovo colore del testo
 
@@ -21,15 +24,15 @@ p {
     color: $body-color !important;
 }
 
-
 .fs-big {
-    font-size: clamp(1.75rem, 1.175rem + 2.875vw, 4.625rem);
+    font-size: clamp(2rem, 1.525rem + 2.375vw, 4.375rem) !important;
 }
 
-h3 {
-    font-size: clamp(1.5rem, 1.425rem + 0.375vw, 1.875rem) !important;
+#contenuto-testata {
+    h2 {
+        font-size: clamp(1.125rem, 0.9rem + 1.125vw, 2.25rem) !important;
+    }
 }
-
 
 #who-we-are {
     background: none;

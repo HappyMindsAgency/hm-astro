@@ -5,15 +5,15 @@ const videoUrl = `${import.meta.env.STRAPI_URL}${pd.video.url}`;
 //console.log(pd);
 ---
 
-<div class="video-header" id="testata">
+<div class="video-header mb-5" id="testata">
     <div class="d-flex justify-content-center align-items-center" id="video-testata">
         <video autoplay loop muted playsinline>
             <source src={videoUrl} type="video/mp4" />
         </video>
         <div class="d-flex flex-column justify-content-center align-items-center" id="contenuto-testata">
-            <div class="titolo-header"><h1 class="text-uppercase">{pd.titolo}</h1></div>
-            <h2 class="fs-2 text-uppercase">{pd.sottotitolo}</h2>
-            <p class="text-white">{pd.descrizione}</p>
+            <div class="titolo-header bg-primary p-2"><h1 class="text-uppercase fw-semibold text-white">{pd.titolo}</h1></div>
+            <h2 class="fs-2 text-uppercase lh-1 my-3 text-white">{pd.sottotitolo}</h2>
+            <p class="text-white fw-light">{pd.descrizione}</p>
             <a 
                 href={pd.pulsante.link} 
                 title={pd.pulsante.title} 
