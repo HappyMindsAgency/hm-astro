@@ -1,0 +1,36 @@
+---
+import placeholder from '../assets/images/placeholder-format.png'
+const items = Array.from({ length: 5});
+---
+
+<section id="format" class="py-5">
+    <div class="container">
+        <div class="row d-lg-flex justify-content-lg-center pb-5">
+            <div class="col col-lg-9 text-center">
+                <h1 class="fw-bold fs-big text-uppercase">Format</h1>
+                <p>Decens thermae suspendo surculus cubicularis suasoria cauda. Vilis arcus vester vilis vilitas venustas vilis adicio adinventitias. Deprimo virgo vitiosus.<br/>
+                    Ager contego autem quo consectetur video aliquam tamdiu virga. Sed cibus illum deprimo denique vae blanditiis denego cauda. Vicissitudo crustulum corrigo compono nobis terror cado adhuc apparatus crapula.</p>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+
+            {items.map((_, index) => (
+            <div class="col col-lg-4" id={`item-${index}`}>
+                <div class="img-container w-100 pb-2">
+                    <img src={placeholder.src} class="img-fluid" title="Titolo del progetto" alt="Immagine del progetto">
+                </div>
+                <div class="content-container w-100 pb-5">
+                    <h3 class="fw-bold lh-1 text-uppercase">Titolo del progetto</h3>
+                    <p class="fs-small fw-bold text-primary">Sottotitolo del progetto</p>
+                    <p>Decens thermae suspendo surculus cubicularis suasoria cauda. Vilis arcus vester vilis vilitas venustas vilis adicio adinventitias. Deprimo virgo vitiosus.
+                        Ager contego autem quo consectetur video aliquam tamdiu virga. </p>
+                </div>
+            </div>
+            ))}
+
+        </div>
+    </div>
+
+
+</section>

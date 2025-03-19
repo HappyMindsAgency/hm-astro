@@ -9,6 +9,7 @@ import ClientSlider from '../components/ClientSlider.astro';
 import Codice from '../components/Codice.astro';
 import CallToAction from '../components/CallToAction.astro';
 import TextAndSlide from '../components/TextAndSlide.astro';
+import Format from '../components/Format.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -48,5 +49,6 @@ const landingID = import.meta.env.LANDING_ID;
 		))
 	}
 	<Presentation />
+	<Format />
 
 </Layout>

@@ -1,15 +1,33 @@
 // custom.scss
 $primary: #d0005a; // Nuovo colore primario
+$hm-light-gray: #4d4d4d;
+$font-poppins: 'Poppins', sans-serif; // Nuovo font
 $border-radius: 50rem; // Nuovo raggio di bordo
 
 $h2-font-size: clamp(1.625rem, 1.2rem + 2.125vw, 3.75rem);
+
+$body-color: $hm-light-gray; // Nuovo colore del testo
 
 // Importa il Bootstrap dopo la personalizzazione
 @import "bootstrap/scss/bootstrap.scss";
 
 
+body {
+    font-family: $font-poppins;
+    color: $body-color;
+}
+
+p {
+    color: $body-color !important;
+}
+
+
 .fs-big {
     font-size: clamp(1.75rem, 1.175rem + 2.875vw, 4.625rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 1.425rem + 0.375vw, 1.875rem) !important;
 }
 
 
