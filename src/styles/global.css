@@ -184,6 +184,16 @@ a.btn-cta {
     font-weight: 700;
 }
 
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.bounce {
+    animation: bounce 0.3s ease-out;
+}
+
 /* Nasconde la navbar classica su mobile */
 @media (max-width: 992px) {
     .desktop-menu {

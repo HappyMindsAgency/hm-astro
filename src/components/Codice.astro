@@ -1,17 +1,10 @@
 ---
 const { pd } = Astro.props;
-import RichText from '../components/core/RichText.astro';
 ---
 
 
 {pd.code !== null && 
 <section id="codice">
-    <div class="container pt-5" id="contattaci">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <RichText block={pd.Code} />
-            </div>
-        </div>
-    </div>
+    <div class={pd.titolo ? pd.titolo : ''} set:html={pd.Code}></div>
 </section>
 }

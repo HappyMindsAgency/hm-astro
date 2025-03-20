@@ -127,7 +127,7 @@ import RichText from '../components/core/RichText.astro';
             .then(response => { console.log("Response -> ",response);/*  return response.json();  */});            
 
             document.getElementById("alert-success").classList.remove("d-none");
-                //form.reset();
+                form.reset();
                 setTimeout(() => {
                     document.getElementById("alert-success").classList.add("d-none");
                 }, 5000);

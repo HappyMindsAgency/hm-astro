@@ -11,6 +11,7 @@ import TextAndSlide from '../components/TextAndSlide.astro';
 import Format from '../components/Format.astro';
 import CtaMagenta from '../components/CtaMagenta.astro';
 import FormLead from '../components/FormLead.astro';
+import Codice from '../components/Codice.astro';
 
 // Define the interface for the pageData objects
 interface PageData {
@@ -35,7 +36,7 @@ const landingID = import.meta.env.LANDING_ID;
 
 //console.log(pageData);
 ---
-<Layout>
+<Layout {landingID}>
 	{
 		pageData.map((pd) => (
 			<slot>
@@ -49,6 +50,7 @@ const landingID = import.meta.env.LANDING_ID;
 				{pd.__component === 'lp-destination-marketing.presentation' && <Presentation {pd} />}
 				{pd.__component === 'shared.cta-magenta' && <CtaMagenta {pd} {landingID} />}
 				{pd.__component === 'shared.form-landing' && <FormLead {pd} {landingID} />}
+				{pd.__component === 'shared.codice' && <Codice {pd} {landingID} />}
 			</slot>
 		))
 		

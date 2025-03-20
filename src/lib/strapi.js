@@ -34,12 +34,18 @@ export default async function fetchApi({
          * come esempio fare riferimento al componente ClientSlider.astro
          */
         if (secondLevel) {
-            if (typeof secondLevelTarget === "object") {
-                Object.entries(secondLevelTarget).forEach(([key, value]) => {
-                    url.searchParams.append(`populate[${secondLevel}]${secondLevelQuery}[populate]`, value);
-                });
+            if (secondLevel === 'seo') {
+                url.searchParams.append('populate[0]', 'seo');
+                url.searchParams.append('populate[1]', 'seo.metaSocial');
+                url.searchParams.append('populate[2]', 'seo.metaSocial.image');
             } else {
-                url.searchParams.append(`populate[${secondLevel}]${secondLevelQuery}[populate]`, secondLevelTarget);
+                if (typeof secondLevelTarget === "object") {
+                    Object.entries(secondLevelTarget).forEach(([key, value]) => {
+                        url.searchParams.append(`populate[${secondLevel}]${secondLevelQuery}[populate]`, value);
+                    });
+                } else {
+                    url.searchParams.append(`populate[${secondLevel}]${secondLevelQuery}[populate]`, secondLevelTarget);
+                }
             }
         } else {
             url.searchParams.append('populate', '*');

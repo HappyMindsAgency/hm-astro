@@ -1,16 +1,163 @@
 ---
 const { title, description } = Astro.props;
 import 'bootstrap/dist/css/bootstrap.css';
+import fetchApi from '../lib/strapi';
+
+import { SEO } from "astro-seo";
+import { number } from 'astro:schema';
+
+const { landingID } = Astro.props;
+
+interface openGraph {
+  basic: {
+    title: string;
+    type: string;
+    image: string;
+    url: string;
+  },
+  optional?: {
+    audio?: string;
+    description?: string;
+    determiner?: string;
+    locale?: string;
+    localeAlternate?: Array<string>;
+    siteName?: string;
+    video?: string;
+  }
+};
+
+interface Seo {
+    seo: {
+        id: number,
+        metaTitle: string,
+        metaDescription: string,
+        keywords: string,
+        metaRobots: string,
+        metaImage: {
+            id: number,
+            documentId: string,
+            name: string,
+            alternativeText: string,
+            caption: string,
+            width: number,
+            height: number,
+            formats: {
+                thumbnail: {
+                    name: string,
+                    hash: string,
+                    ext: string,
+                    mime: string,
+                    width: number,
+                    height: number,
+                    size: number,
+                }
+                small: {
+                    name: string,
+                    hash: string,
+                    ext: string,
+                    mime: string,
+                    width: number,
+                    height: number,
+                    size: number,
+                }
+            },
+            hash: string,
+            ext: string,
+            mime: string,
+            size: number,
+            url: string,
+            previewUrl: string,
+            provider: string,
+            provider_metadata: string,
+            created_at: string,
+            updated_at: string,
+            publishedAt: string,
+            revisedAt: string,
+        },
+        metaSocial: [
+            {
+                id: number,
+                socialNetwork: string,
+                title: string,
+                description: string,
+            }
+        ],
+    }
+};
+/* interface Seo {
+    content?: Content[];
+}; */
+
+/**
+ * esempio link chiamata API
+ * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
+ */
+const pageData: Seo = await fetchApi({
+	endpoint: `landing-pages/${landingID}`, 
+	page: '', 
+	wrappedByKey: 'data',
+    query: {}, 
+    wrappedByList: false, 
+    locale: '', 
+
+    // popolare con il nome del contenitore dinamico solo nel caso si voglia popolare un componente al suo interno a un livello dal secondo in poi
+    secondLevel: 'seo', 
+    secondLevelQuery: '', 
+    secondLevelTarget: '', 
+});
+
+const sitoUrl = import.meta.env.STRAPI_URL;
+const seo = pageData.seo;
+const metaSocialGeneric = seo.metaSocial[0];
+const metaSocialTwitter = seo.metaSocial[1] ? seo.metaSocial[1] : metaSocialGeneric;
+
+console.log(sitoUrl+metaSocialGeneric.image[0].url);
 ---
 
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WVT567ZX');</script>
+    <!-- End Google Tag Manager -->
+
+    <SEO 
+        title={seo.metaTitle}
+        titleDefault="Destination Marketing | HappyMinds"
+        description={seo.metaDescription}
+        noindex={seo.metaRobots.includes('noindex') ? true : false}
+        nofollow={seo.metaRobots.includes('nofollow') ? true : false}
+        openGraph={{
+        basic: {
+            title: metaSocialGeneric.title,
+            type: "website",
+            image: sitoUrl+metaSocialGeneric.image[0].url,
+            url: sitoUrl,
+        },
+        optional: {
+            description: metaSocialGeneric.description,
+            locale: 'it_IT',
+        }
+        }}
+        extend={{
+        // extending the default link tags
+        link: [{ rel: "image/x-icon", href: "/favicon.ico" }],
+        // extending the default meta tags
+        meta: [
+            {
+            name: "twitter:image",
+            content: sitoUrl+metaSocialTwitter.image[0].url,
+            },
+            { name: "twitter:title", content: metaSocialTwitter.title },
+            { name: "twitter:description", content: metaSocialTwitter.description },
+        ],
+        }}
+    />
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
+    
 </head>

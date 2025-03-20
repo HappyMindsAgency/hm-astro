@@ -110,6 +110,7 @@ const { pd } = Astro.props;
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const counter = entry.target;
+                    const counterContainer = counter.closest("h2"); // Trova il <h2> che contiene il numero
                     
                     // Controlla se l'animazione è già partita
                     if (!counter.classList.contains("started")) {
@@ -118,11 +119,11 @@ const { pd } = Astro.props;
                         const target = parseInt(counter.getAttribute("data-target") || "0");
                         const duration = parseInt(counter.getAttribute("data-duration") || "2000");
                         
-                        // Ritardo casuale tra 0.5s e 1.5s
+                        // Ritardo casuale tra 0 e 500ms
                         const randomDelay = Math.random() * 500;
 
                         setTimeout(() => {
-                            startCounter(counter, 0, target, duration);
+                            startCounter(counter, counterContainer, 0, target, duration);
                         }, randomDelay);
                     }
                 }
@@ -134,13 +135,14 @@ const { pd } = Astro.props;
     });
 
     /**
-     * Funzione per avviare un contatore numerico animato con easing cubic.
+     * Funzione per avviare un contatore numerico animato con easing cubic e effetto bounce su <h2>.
      * @param {HTMLElement} element L'elemento in cui aggiornare il numero
+     * @param {HTMLElement} container L'elemento <h2> che deve ricevere l'effetto bounce
      * @param {number} start Numero iniziale
      * @param {number} end Numero finale
      * @param {number} duration Durata dell'animazione in millisecondi
      */
-    function startCounter(element, start, end, duration) {
+    function startCounter(element, container, start, end, duration) {
         let startTime = null;
         let range = end - start;
 
@@ -159,6 +161,14 @@ const { pd } = Astro.props;
                 requestAnimationFrame(updateCounter);
             } else {
                 element.textContent = end.toString(); // Assicura precisione
+
+                // Aggiunge l'effetto bounce al <h2> contenitore
+                container.classList.add("bounce");
+
+                // Rimuove la classe dopo l'animazione per poterla riapplicare in futuro
+                setTimeout(() => {
+                    container.classList.remove("bounce");
+                }, 400);
             }
         }
 
