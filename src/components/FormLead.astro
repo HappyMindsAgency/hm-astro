@@ -126,25 +126,39 @@ import RichText from '../components/core/RichText.astro';
             })
             .then(response => { console.log("Response -> ",response);/*  return response.json();  */});            
 
-            document.getElementById("alert-success").classList.remove("d-none");
-                form.reset();
-                setTimeout(() => {
-                    document.getElementById("alert-success").classList.add("d-none");
-                }, 5000);
-
-           /*  console.log(response);
-
-            const result = await response.json();
-
-            if (response.status === "success") {
                 document.getElementById("alert-success").classList.remove("d-none");
                 form.reset();
                 setTimeout(() => {
                     document.getElementById("alert-success").classList.add("d-none");
-                }, 5000);
-            }
-            
-            console.log("Messaggio", result.message); */
+                }, 5000);        
+
+                let emailData = {
+                    email: data.email,
+                    subject: "Grazie per averci contattato!",
+                    text: "Ti risponderemo al più presto."
+                }
+
+                console.log("Email Data ->", emailData);
+                console.log(JSON.stringify(emailData));
+    
+            try {
+                const emailResponse = await fetch('/api/send-mail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(emailData)
+                });
+
+                const emailResult = await emailResponse.json();
+    
+                console.log("Email Result ->", emailResult);
+    
+    
+            } catch (error) {
+                console.error("Errore nell'invio della mail", error);
+            }    
+
             
         }
 
