@@ -7,23 +7,29 @@ import nodemailer from 'nodemailer';
 
 export async function POST({ request }) {
     console.log('Richiesta ricevuta!');
-    try {       
-
-        console.log('Richiesta:', request);        
-        
+    try {   
+        console.log('Invio email...');
         const { email, subject, text } = await request.json();
 
-        console.log('Email:', email);
-        console.log('Subject:', subject);
-        console.log('Text:', text);
-
-        console.log("Sono qui!");
-
-        console.log('SMTP config:', {
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
-            user: process.env.SMTP_USER,
+        const smtpPort = parseInt(import.meta.env.SMTP_PORT);
+        
+        let transporter = nodemailer.createTransport({
+            host: import.meta.env.SMTP_HOST,
+            port: smtpPort,
+            secure: smtpPort === 465,
+            tls: {
+                rejectUnauthorized: false
+            },
+            auth: {
+                user: import.meta.env.SMTP_USER,
+                pass: import.meta.env.SMTP_PASS,
+            }
         });
+        //console.log('Trasportatore:', transporter);
+
+        if (!transporter) {
+            throw new Error('Errore durante la creazione del trasportatore!');
+        }
 
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
@@ -37,10 +43,12 @@ export async function POST({ request }) {
           
 
         const mailOptions = {
-            from: process.env.SMTP_USER,
+            from: '"HappyMinds Agency" <'+ import.meta.env.SMTP_USER+'>',
             to: email,
             subject: subject,
             text: text,
+            bcc: ['v.lioce@happyminds.it', 'assistenzaweb@happyminds.it'],
+            replyTo: 'hello@happyminds.it',
         };
 
         const info = await transporter.sendMail(mailOptions);
@@ -52,22 +60,18 @@ export async function POST({ request }) {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            },
+            console.log('Email inviata con successo!')
         );
     } catch (error) {
-        console.error('Errore durante l\'invio della email:', error);
-        if (error instanceof Error) {
-          console.error('Dettagli:', error.message);
-          console.error('Stack trace:', error.stack);
+        console.error("Errore durante l'invio dell'email:", error); // Log the full error object
+        let errorMessage = "Errore durante l'invio dell'email";
+        if (error.response) {
+            errorMessage += `: ${error.response.body}`; // Include server response if available
+        } else if (error.message) {
+            errorMessage += `: ${error.message}`; // Include error message if available
         }
-        return new Response(
-            JSON.stringify({ 
-              error: 'Errore durante l\'invio dell\'email', 
-              details: error instanceof Error ? error.message : String(error) 
-            }),
-            { status: 500, headers: { 'Content-Type': 'application/json' } }
-          );
-          
+        return new Response(JSON.stringify({ error: errorMessage }), { status: 500, headers: { 'Content-Type': 'application/json' } });
       }
       
 }
