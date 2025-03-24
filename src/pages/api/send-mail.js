@@ -1,5 +1,8 @@
 export const prerender = false;
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 import nodemailer from 'nodemailer';
 
 export async function POST({ request }) {
@@ -14,15 +17,24 @@ export async function POST({ request }) {
         console.log('Subject:', subject);
         console.log('Text:', text);
 
-        const transporter = nodemailer.createTransport({
+        console.log("Sono qui!");
+
+        console.log('SMTP config:', {
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,
-            secure: process.env.SMTP_PORT == 465,
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS,
-            }
+            user: process.env.SMTP_USER,
         });
+
+        const transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT),
+            secure: Number(process.env.SMTP_PORT) === 465,
+            auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS,
+            },
+        });
+          
 
         const mailOptions = {
             from: process.env.SMTP_USER,
@@ -43,12 +55,21 @@ export async function POST({ request }) {
             }
         );
     } catch (error) {
-        console.error('Errore durante l\'invio dell\'email:', error);
+        console.error('Errore durante l\'invio della email:', error);
+        if (error instanceof Error) {
+          console.error('Dettagli:', error.message);
+          console.error('Stack trace:', error.stack);
+        }
         return new Response(
-          JSON.stringify({ error: 'Errore durante l\'invio dell\'email' }),
-          { status: 500, headers: { 'Content-Type': 'application/json' } }
-        );
+            JSON.stringify({ 
+              error: 'Errore durante l\'invio dell\'email', 
+              details: error instanceof Error ? error.message : String(error) 
+            }),
+            { status: 500, headers: { 'Content-Type': 'application/json' } }
+          );
+          
       }
+      
 }
 
 export async function GET() {

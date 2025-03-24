@@ -3,7 +3,7 @@ import Head from './Head.astro'
 import Footer from '../components/Footer.astro'
 import Nav from './Nav.astro'
 
-const { landingID } = Astro.props;
+const { pd, landingID } = Astro.props;
 
 const { 
 	title = 'HappyLanding!', 
@@ -21,7 +21,7 @@ import "../styles/custom.scss";
 
 <!doctype html>
 <html lang="en">
-	<Head {title} {description} {landingID} />
+	<Head {title} {description} {pd} {landingID} />
 	<body data-bs-smooth-scroll="true">
 		<Nav />
 

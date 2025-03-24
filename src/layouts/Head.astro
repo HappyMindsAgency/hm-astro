@@ -6,7 +6,7 @@ import fetchApi from '../lib/strapi';
 import { SEO } from "astro-seo";
 import { number } from 'astro:schema';
 
-const { landingID } = Astro.props;
+const { pd, landingID } = Astro.props;
 
 interface openGraph {
   basic: {
@@ -84,9 +84,6 @@ interface Seo {
         ],
     }
 };
-/* interface Seo {
-    content?: Content[];
-}; */
 
 /**
  * esempio link chiamata API
@@ -107,9 +104,9 @@ const pageData: Seo = await fetchApi({
 });
 
 const sitoUrl = import.meta.env.STRAPI_URL;
-const seo = pageData.seo;
-const metaSocialGeneric = seo.metaSocial[0];
-const metaSocialTwitter = seo.metaSocial[1] ? seo.metaSocial[1] : metaSocialGeneric;
+const seo = pageData ? pageData.seo : '';
+const metaSocialGeneric = seo !== '' ? seo.metaSocial[0] : '';
+const metaSocialTwitter = seo !== '' ? seo.metaSocial[1] : metaSocialGeneric;
 
 //console.log(sitoUrl+metaSocialGeneric.image[0].url);
 ---
@@ -120,20 +117,20 @@ const metaSocialTwitter = seo.metaSocial[1] ? seo.metaSocial[1] : metaSocialGene
     <!-- End Google Tag Manager -->
 
     <SEO 
-        title={seo.metaTitle}
+        title={seo !== '' ? seo.metaTitle : ''}
         titleDefault="Destination Marketing | HappyMinds"
-        description={seo.metaDescription}
-        noindex={seo.metaRobots.includes('noindex') ? true : false}
-        nofollow={seo.metaRobots.includes('nofollow') ? true : false}
+        description={seo !== '' ? seo.metaDescription : ''}
+        noindex={seo !== '' ? (seo.metaRobots.includes('noindex') ? true : false) : false}
+        nofollow={seo !== '' ? (seo.metaRobots.includes('nofollow') ? true : false) : false}
         openGraph={{
         basic: {
-            title: metaSocialGeneric.title,
+            title: metaSocialGeneric ? metaSocialGeneric.title : '',
             type: "website",
-            image: sitoUrl+metaSocialGeneric.image[0].url,
-            url: sitoUrl,
+            image: metaSocialGeneric ? sitoUrl+metaSocialGeneric.image[0].url : '',
+            url: Astro.url.href,
         },
         optional: {
-            description: metaSocialGeneric.description,
+            description: metaSocialGeneric ? metaSocialGeneric.description : '',
             locale: 'it_IT',
         }
         }}
@@ -144,15 +141,14 @@ const metaSocialTwitter = seo.metaSocial[1] ? seo.metaSocial[1] : metaSocialGene
         meta: [
             {
             name: "twitter:image",
-            content: sitoUrl+metaSocialTwitter.image[0].url,
+            content: metaSocialTwitter ? sitoUrl+metaSocialTwitter.image[0].url : '',
             },
-            { name: "twitter:title", content: metaSocialTwitter.title },
-            { name: "twitter:description", content: metaSocialTwitter.description },
+            { name: "twitter:title", content: metaSocialTwitter ? metaSocialTwitter.title : '' },
+            { name: "twitter:description", content: metaSocialTwitter ? metaSocialTwitter.description : '' },
         ],
         }}
     />
 
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -5,3 +5,5 @@
 - [V] Rendere dinamico il retrieve dell'ID nel componente ClientSlider.astro
 - [V] Aggiungere campo in componenti singoli di RigaCounter per implementare dove si vuole il simbolo prima del numero (lunghezza massima del testo 1 carattere)
 - [V] Implementare ovunque controllo sull'esistenza di un contenuto da aggiungere in modo da non causare bug
+- [ ] Implementare diversamente la condizione per stampare i vari dontenuti dinamici
+        |__ const { card } = Astro.props.twitter; {card ? <meta name="twitter:card" content={card} /> : null}
