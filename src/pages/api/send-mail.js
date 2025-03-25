@@ -1,8 +1,5 @@
 export const prerender = false;
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 import nodemailer from 'nodemailer';
 
 export async function POST({ request }) {
@@ -16,7 +13,7 @@ export async function POST({ request }) {
         let transporter = nodemailer.createTransport({
             host: import.meta.env.SMTP_HOST,
             port: smtpPort,
-            secure: smtpPort === 465,
+            /* secure: smtpPort === 465, */
             tls: {
                 rejectUnauthorized: false
             },
@@ -31,23 +28,12 @@ export async function POST({ request }) {
             throw new Error('Errore durante la creazione del trasportatore!');
         }
 
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: Number(process.env.SMTP_PORT),
-            secure: Number(process.env.SMTP_PORT) === 465,
-            auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
-            },
-        });
-          
-
         const mailOptions = {
-            from: '"HappyMinds Agency" <'+ import.meta.env.SMTP_USER+'>',
+            from: '"HappyMinds" <'+ import.meta.env.SMTP_USER+'>',
             to: email,
             subject: subject,
             text: text,
-            bcc: ['v.lioce@happyminds.it', 'assistenzaweb@happyminds.it'],
+            bcc: ['hello@happyminds.it', 'assistenzaweb@happyminds.it'],
             replyTo: 'hello@happyminds.it',
         };
 
@@ -73,7 +59,6 @@ export async function POST({ request }) {
         }
         return new Response(JSON.stringify({ error: errorMessage }), { status: 500, headers: { 'Content-Type': 'application/json' } });
       }
-      
 }
 
 export async function GET() {

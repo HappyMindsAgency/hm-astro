@@ -43,16 +43,45 @@ import RichText from '../components/core/RichText.astro';
             </div> 
             
             <div class="col-12">
-                <label for="servizi" class="form-label">Quali servizi ti interessano? <sup class="text-primary fw-bold">*</sup></label>
-                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Hai presente le cose belle qui sopra?" name="servizi" id="servizi" required/>
-                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
-            </div>
-
-            <div class="col-12">
-                <label for="format" class="form-label">Quali format vorresti portare nel tuo territorio? <sup class="text-primary fw-bold">*</sup></label>
-                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Una Ciclomangia io, te e Felix?" name="format" id="format" required/>
-                <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
-            </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label">Quali servizi ti interessano?</label>
+                        <div class="row">
+                            {[
+                                "Marketing territoriale e Governance turistica",
+                                "Data Intelligence",
+                                "Destination Branding",
+                                "Comunicazione e creatività",
+                                "Ecosistemi digitali"
+                            ].map((servizio, i) => (
+                                <div class="form-check col-12" key={`servizio-${i}`}>
+                                    <input class="form-check-input" type="checkbox" name="servizi" value={servizio} id={`servizio-${i}`} />
+                                    <label class="form-check-label" for={`servizio-${i}`}>{servizio}</label>
+                                </div>
+                            ))}
+                        </div>
+                    </div> 
+                    
+                    <div class="col-12 col-md-6">
+                        <label class="form-label">Quali format vorresti portare nel tuo territorio?</label>
+                        <div class="row">
+                            {[
+                                "Tu che viaggiatore sei?",
+                                "Ciclomangia",
+                                "HappyDestination Lab",
+                                "Get Your Destination Experience",
+                                "Travel Bootcamp"
+                            ].map((format, i) => (
+                                <div class="form-check col-12" key={`format-${i}`}>
+                                    <input class="form-check-input" type="checkbox" name="format" value={format} id={`format-${i}`} />
+                                    <label class="form-check-label" for={`format-${i}`}>{format}</label>
+                                </div>
+                            ))}
+                        </div>
+                    </div> 
+                </div>
+            </div>                     
+           
 
             <div class="col-12">
                 <label for="messaggio" class="form-label">Messaggio</label>
@@ -93,79 +122,102 @@ import RichText from '../components/core/RichText.astro';
 
 <script is:inline>
     (() => {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', async event => {
-        if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-        } else {
-            // Send the form data to the server
-            //console.log('Form is valid! Send the request to the server...')
-            event.preventDefault() 
-            event.stopPropagation()
-            const formData = new FormData(form)
-            const data = Object.fromEntries(formData.entries())
-
-            //console.log(data)
-
-            await fetch('https://script.google.com/macros/s/AKfycbzO_8Y4r5Qj1AF4wwGuQ-1ji004P7QV8SKsxC7xYDXEdzL8_rX-IxmMd0XxdRfKUNNClg/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Connection': 'keep-alive',
-                    'Accept-Encoding': 'gzip, deflate, br',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => { /*console.log("Response -> ",response);/*  return response.json();  */});
-
+        'use strict';
+    
+        const forms = document.querySelectorAll('.needs-validation');
+    
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', async event => {
+                event.preventDefault();
+                event.stopPropagation();
+    
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+    
+                const formData = new FormData(form);
+                const data = {};
+    
+                // Gestione multipla per checkbox (servizi e format)
+                formData.forEach((value, key) => {
+                    if (data[key]) {
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                });
+    
+                // Default se nessun servizio o format selezionato
+                const serviziText = Array.isArray(data.servizi) ? data.servizi.join(", ") :
+                                    data.servizi ? data.servizi : "Nessun servizio selezionato";
+    
+                const formatText = Array.isArray(data.format) ? data.format.join(", ") :
+                                   data.format ? data.format : "Nessun format selezionato";
+    
+                await fetch('https://script.google.com/macros/s/AKfycbzO_8Y4r5Qj1AF4wwGuQ-1ji004P7QV8SKsxC7xYDXEdzL8_rX-IxmMd0XxdRfKUNNClg/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Connection': 'keep-alive',
+                        'Accept-Encoding': 'gzip, deflate, br',
+                    },
+                    body: JSON.stringify(data)
+                });
+    
                 document.getElementById("alert-success").classList.remove("d-none");
                 form.reset();
+                form.classList.remove("was-validated");
+    
                 setTimeout(() => {
                     document.getElementById("alert-success").classList.add("d-none");
                 }, 5000);
-
-                let textEmail = "Ciao "+data.nome+",\ngrazie per averci contattɜ, siamo molto felici!\nPer ringraziarti del tuo interesse, a questo link: https://happyminds.it/portfolio.pdf trovi il nostro portfolio: potrai approfondire i nostri HappyProject e conoscere l'approccio e i servizi che abbiamo realizzato.\nTi ricontatteremo al più presto per fissare una call conoscitiva e rendere la tua destinazione ancora più felice 🦩\n\nA presto,\nil team di HappyMinds\n----\nQuesta è una email automatica, per qualsiasi cosa inviare un messaggio a hello@happyminds.it";
-
-                let emailData = {
+    
+                // Testo dell'email con inserimento dinamico
+                let textEmail = `Ciao ${data.nome || ''},
+    
+    grazie per averci contattatɜ, siamo molto felici!
+    
+    Per ringraziarti del tuo interesse, a questo link: https://happyminds.it/portfolio.pdf trovi il nostro portfolio: potrai approfondire i nostri HappyProject e conoscere l'approccio e i servizi che abbiamo realizzato.
+    
+    📌 Servizi selezionati: ${serviziText}
+    🎯 Format selezionati: ${formatText}
+    
+    Ti ricontatteremo al più presto per fissare una call conoscitiva e rendere la tua destinazione ancora più felice 🦩
+    
+    A presto,
+    il team di HappyMinds
+    
+    ----
+    Questa è una email automatica, per qualsiasi cosa inviare un messaggio a hello@happyminds.it`;
+    
+                const emailData = {
                     email: data.email,
                     subject: "Grazie per il tuo interesse | HappyMinds",
                     text: textEmail
+                };
+    
+                try {
+                    const emailResponse = await fetch('/api/send-mail', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(emailData)
+                    });
+    
+                    const emailResult = await emailResponse.json();
+                    // console.log("Email Result ->", emailResult);
+                } catch (error) {
+                    console.error("Errore nell'invio della mail", error);
                 }
-
-                /* console.log("Email Data ->", emailData);
-                console.log(JSON.stringify(emailData)); */
+            }, false);
+        });
+    })();
+    </script>
     
-            try {
-                const emailResponse = await fetch('/api/send-mail', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(emailData)
-                });
-
-                const emailResult = await emailResponse.json();
-    
-                /* console.log("Email Result ->", emailResult); */
-    
-    
-            } catch (error) {
-                console.error("Errore nell'invio della mail", error);
-            }    
-
-            
-        }
-
-        form.classList.add('was-validated')
-        }, false)
-    })
-    })()
-</script>

@@ -57,8 +57,6 @@ const ctaMain: CtaMain[] = await fetchApi({
 //let riga = format.content[0];
 
 const logoUrl = import.meta.env.STRAPI_URL;
-let cont = 0;
-let dimCol = 0;
 
 const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and a fallback to an empty array
 
@@ -69,7 +67,7 @@ const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and 
         <div class="row gx-5">
             
             {colonna !== null && colonna.map((counter: Counter, index: number) => (
-            <div class="col-11 col-lg-6 text-white m-auto py-3">
+            <div class="col-11 col-lg-6 text-white mx-auto py-3">
                 {counter.titolo !== null &&
                     <h2 class="fw-bold text-uppercase">{counter.titolo}</h2>
                 }

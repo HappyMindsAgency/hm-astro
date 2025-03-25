@@ -7,3 +7,4 @@
 - [V] Implementare ovunque controllo sull'esistenza di un contenuto da aggiungere in modo da non causare bug
 - [ ] Implementare diversamente la condizione per stampare i vari dontenuti dinamici
         |__ const { card } = Astro.props.twitter; {card ? <meta name="twitter:card" content={card} /> : null}
+        
