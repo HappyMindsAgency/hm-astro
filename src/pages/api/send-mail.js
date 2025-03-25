@@ -10,10 +10,12 @@ export async function POST({ request }) {
 
         const smtpPort = parseInt(import.meta.env.SMTP_PORT);
         
+        //465 for SSL, 587 for TLS
+
         let transporter = nodemailer.createTransport({
             host: import.meta.env.SMTP_HOST,
             port: smtpPort,
-            secure: smtpPort === 465,
+            secure: smtpPort,
             tls: {
                 rejectUnauthorized: false
             },
@@ -29,7 +31,7 @@ export async function POST({ request }) {
         }
 
         const mailOptions = {
-            from: '"HappyMinds Agency" <'+ import.meta.env.SMTP_USER+'>',
+            from: '"HappyMinds" <'+ import.meta.env.SMTP_USER+'>',
             to: email,
             subject: subject,
             text: text,
