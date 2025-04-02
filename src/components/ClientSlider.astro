@@ -116,7 +116,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
     import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
     
     
-    const swiper = new Swiper('.swiper', {
+    const swiper = new Swiper('.clientiSwiper', {
         slidesPerView: 1, 
         spaceBetween: 52, 
         /* loop: true, */
@@ -155,7 +155,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <div class="col-12 py-5 px-5">
-                <div class="swiper pb-5">
+                <div class="swiper clientiSwiper pb-5">
                     <div class="swiper-wrapper">
 
                         {clienti !== null && clienti.map((counter: Counter) => (

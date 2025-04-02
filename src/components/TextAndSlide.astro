@@ -90,30 +90,31 @@ const logoUrl = import.meta.env.STRAPI_URL;
 <section id="text-and-foto" class="py-3 py-lg-5">
     <div class="container-xl">
 
-        {riga.riga !== null && riga.riga.map((counter: Counter, index: number) => (
+        {riga.riga && riga.riga.map((counter: Counter, index: number) => (
             <div 
+                key={`slide-${index}`}
                 class={counter.reverseColumn ? 'row d-flex flex-row-reverse justify-content-center' : 'row d-flex justify-content-center'} 
                 id={`text-and-slide-${index}`} 
             >
                 <div class="col-10 col-lg-7 col-xl-6 p-3 p-lg-5">
                     <div class="text-container pt-3 pb-2">
 
-                        {counter.titolo !== null && 
+                        {counter.titolo && 
                         <h3 class="text-primary lh-1 fw-bold pb-3 text-uppercase">{counter.titolo}</h3>
                         }
 
-                        {counter.paragrafo1 !== null &&
+                        {counter.paragrafo1 &&
                         <RichText block={counter.paragrafo1} />
                         }
 
                     </div>
                     <div class="text-container pt-2 pb-3">
 
-                        {counter.sottotitolo !== null && 
+                        {counter.sottotitolo && 
                         <h4 class="text-secondary lh-1 pb-3 text-uppercase">{counter.sottotitolo}</h4>
                         }
 
-                        {counter.paragrafo2 !== null && 
+                        {counter.paragrafo2 && 
                         <RichText block={counter.paragrafo2} />
                         }
 
@@ -121,25 +122,20 @@ const logoUrl = import.meta.env.STRAPI_URL;
                 </div> 
 
                 <div class="col-11 offset-lg-0 col-lg-5 col-xl-6 p-3 p-lg-5 m-auto">
-                    <div class="swiper mySwiperTextSlide">
+                    <div class={`swiper mySwiperTextSlide-${index+1} identifier`}>
                         <div class="swiper-wrapper">
-
-                            {counter.slider !== null && Array.isArray(counter.slider) && counter.slider.map((riga: Counter) => (
-                                <div class="swiper-slide">
-                                    <Image 
-                                        src={logoUrl+riga.url} 
-                                        class="img-fluid rounded-4" 
-                                        alt={riga.alternativeText ? riga.alternativeText : ""} 
-                                        width={riga.width} 
-                                        height={riga.height} 
-                                    />
-                                </div>
+                            {counter.slider && Array.isArray(counter.slider) && counter.slider.map((riga: Counter, i: number) => (
+                            <div class="swiper-slide" key={`slide-img-${i}`}>
+                                <Image 
+                                src={logoUrl + riga.url} 
+                                class="img-fluid rounded-4" 
+                                alt={riga.alternativeText ?? ""} 
+                                width={riga.width} 
+                                height={riga.height} 
+                                />
+                            </div>
                             ))}
-
                         </div>
-                        
-                        {/* <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div> */}
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>  
@@ -149,26 +145,38 @@ const logoUrl = import.meta.env.STRAPI_URL;
     </div>
 </section>
 
-<script type="module">
+<script type="module">// Importa Swiper dalla CDN come modulo ES
     import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
-        
+
     document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".mySwiperTextSlide").forEach((swiperEl) => {
+        let n = 1;
+        while (true) {
+            const selector = `.mySwiperTextSlide-${n}`;
+            const swiperEl = document.querySelector(selector);
+
+            // Se non esiste, esci dal ciclo
+            if (!swiperEl) break;
+
             new Swiper(swiperEl, {
-                /* loop: true, */
-                /* navigation: {
-                    nextEl: swiperEl.querySelector(".swiper-button-next"),
-                    prevEl: swiperEl.querySelector(".swiper-button-prev"),
-                }, */
                 autoplay: {
                     delay: Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000,
                     disableOnInteraction: false,
                 },
+                slidesPerView: 1,
+                spaceBetween: 52,
+                grabCursor: true,
                 pagination: {
                     el: swiperEl.querySelector(".swiper-pagination"),
                     clickable: true,
                 },
+                breakpoints: {
+                    640: { slidesPerView: 1, spaceBetween: 52 },
+                    768: { slidesPerView: 1, spaceBetween: 52 },
+                    1024: { slidesPerView: 1, spaceBetween: 52 },
+                }
             });
-        });
+
+            n++; // passa al successivo .mySwiperTextSlide-n
+        }
     });
 </script>
