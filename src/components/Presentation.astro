@@ -2,7 +2,7 @@
 const { pd } = Astro.props;
 import { Image } from "astro:assets";
 import RichText from '../components/core/RichText.astro';
-const logoUrl = import.meta.env.STRAPI_URL;
+const sitoUrl = import.meta.env.STRAPI_URL;
 
 //console.log(pd);
 ---
@@ -26,7 +26,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
 
                     {pd.logo !== null &&
                     <Image 
-                        src={logoUrl+pd.logo.url} 
+                        src={sitoUrl+pd.logo.url} 
                         class="img-fluid" 
                         alt={pd.logo.alternativeText ? pd.logo.alternativeText : ""} 
                         width={pd.logo.width} 
@@ -45,7 +45,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
 
                     {pd.company !== null &&
                     <Image 
-                        src={logoUrl+pd.company.url} 
+                        src={sitoUrl+pd.company.url} 
                         class="img-fluid rounded-4" 
                         alt={pd.company.alternativeText ? pd.company.alternativeText : ""} 
                         width={pd.company.width} 
