@@ -27,7 +27,7 @@ a.nav-link {
 
 /* Navbar full width */
 .navbar-custom {
-    width: 100vw;
+    width: 100%;
     height: 100px;
     transition: all .3s ease;
 }
