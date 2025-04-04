@@ -46,7 +46,7 @@ a.nav-link {
 }
 
 /* Quando la navbar si riduce */
-.navbar-custom.shrunk .navbar-brand img {
+#navbarHM.shrunk .navbar-brand img {
     max-height: 30px;
 }
 
@@ -67,52 +67,6 @@ a.nav-link {
     outline: none;
 }
 
-/* Modale menu mobile */
-.full-screen-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
-
-/* Quando il menu è aperto */
-.full-screen-menu.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Stile dei link nel modale */
-.full-screen-menu a {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-    margin: 20px 0;
-    transition: color 0.2s ease-in-out;
-}
-
-.full-screen-menu a:hover {
-    color: #007bff;
-}
-
-/* Stile del pulsante X */
-.close-menu {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-}
 
 #testata {
     height: 70vh;
@@ -192,11 +146,4 @@ a.btn-cta {
 
 .bounce {
     animation: bounce 0.3s ease-out;
-}
-
-/* Nasconde la navbar classica su mobile */
-@media (max-width: 992px) {
-    .desktop-menu {
-        display: none;
-    }
 }
