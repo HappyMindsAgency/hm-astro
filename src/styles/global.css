@@ -29,7 +29,7 @@ a.nav-link {
 .navbar-custom {
     width: 100vw;
     height: 100px;
-    transition: height 0.3s ease-in-out;
+    transition: all .3s ease;
 }
 
 /* Navbar ridotta */
@@ -46,7 +46,7 @@ a.nav-link {
 }
 
 /* Quando la navbar si riduce */
-#navbarHM.shrunk .navbar-brand img {
+.navbar-custom.shrunk .navbar-brand img {
     max-height: 30px;
 }
 

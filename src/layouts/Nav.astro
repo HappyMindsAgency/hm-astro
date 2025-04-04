@@ -12,18 +12,19 @@ const items: NavbarItemType[] = [
 
 const id = 'navbar';
 import logo from '../assets/images/happy-minds-logo-orizzontale-colori.png';
+const sitoUrl = import.meta.env.STRAPI_URL;
 ---
 
-<Navbar class="navbar navbar-expand-lg navbar-light bg-white fixed-top navbar-custom" id="navbarHM">
-    <div class="container-fluid bg-white">
+<Navbar class="navbar navbar-expand-lg navbar-light bg-white sticky-top navbar-custom" id="navbarHM">
+    <div class="container-fluid bg-white px-4">
 
-        <a class="navbar-brand ms-4" href="/">
-            <img src={logo.src} width={logo.width} height={logo.height} alt="Logo" class="img-fluid">
+        <a class="navbar-brand" href="/">
+            <img src={`${sitoUrl}/uploads/happy_minds_logo_orizzontale_colori_3da0b86e6e.png`} width={logo.width} height={logo.height} alt="Logo" class="img-fluid">
         </a>
 
         <Navbar.Toggler controls={id} />
         <Navbar.Collapse {id}>
-            <Navbar.Items {items} class="bg-white w-100 text-center text-lg-start me-4 justify-content-end text-uppercase justify-content- mb-2 mb-lg-0" />
+            <Navbar.Items {items} class="bg-white w-100 text-center text-lg-start justify-content-end text-uppercase justify-content- mb-2 mb-lg-0" />
         </Navbar.Collapse>
     </div>
 </Navbar>
@@ -32,11 +33,12 @@ import logo from '../assets/images/happy-minds-logo-orizzontale-colori.png';
     import 'bootstrap/js/dist/collapse';
     document.addEventListener("DOMContentLoaded", function () {
         const navbarHM = document.getElementById("navbarHM");
+        let lastScrollY = window.scrollY;
     
         // Riduzione navbar allo scroll
         if (navbarHM) {
             window.addEventListener("scroll", () => {
-                navbarHM.classList.toggle("shrunk", window.scrollY > 50);
+                navbarHM.classList.toggle("shrunk", window.scrollY > 1);
             });
         }
     });
