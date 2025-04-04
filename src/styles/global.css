@@ -32,6 +32,20 @@ a.nav-link {
     transition: all .3s ease;
 }
 
+/* Navbar full width */
+.navbar-custom-mobile {
+    width: 100%;
+    transition: all .3s ease;
+}
+.navbar-custom-mobile .navbar-brand img {
+    max-height: 30px;
+}
+.navbar-custom-mobile .navbar-toggler, 
+.navbar-custom-mobile .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+}
+
 /* Navbar ridotta */
 .navbar-custom.shrunk {
     height: 60px;
