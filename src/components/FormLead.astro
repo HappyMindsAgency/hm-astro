@@ -8,8 +8,8 @@ import RichText from '../components/core/RichText.astro';
     <div class="container col-11 m-auto">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
             <div class="col-12 col-lg-9 text-center">
-                {pd.titolo !== null && <h1 class="fw-bold text-uppercase">{pd.titolo}</h1>}
-                {pd.descrizione !== null && <RichText block={pd.descrizione} />}
+                {pd.titolo && <h1 class="fw-bold text-uppercase">{pd.titolo}</h1>}
+                {pd.descrizione && <RichText block={pd.descrizione} />}
             </div>
         </div>
 
@@ -21,13 +21,13 @@ import RichText from '../components/core/RichText.astro';
             </div>
             <div class="col-12 col-lg-6">
                 <label for="cognome" class="form-label">Cognome <sup class="text-primary fw-bold">*</sup></label>
-                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Scrivi qui il tuo cognome" id="cognome" name="cognome" required>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui il tuo cognome" id="cognome" name="cognome" required>
                 <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
             </div>
 
             <div class="col-12">
                 <label for="azienda" class="form-label">Azienda, ente, istituzione o associazione <sup class="text-primary fw-bold">*</sup></label>
-                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserire qui il nome della tua azienda, ente, associazione, ecc." name="azienda" id="azienda" required>
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui il nome della tua azienda, ente, associazione, ecc." name="azienda" id="azienda" required>
                 <div class="valid-feedback">Ok!</div><div class="invalid-feedback">Inserisci correttamente i dati</div>
             </div>
 
@@ -39,7 +39,7 @@ import RichText from '../components/core/RichText.astro';
 
             <div class="col-12 col-lg-6">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Un contatto telefonico" aria-label="Telefono" name="telefono">
+                <input type="text" class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Inserisci qui un contatto telefonico" aria-label="Telefono" name="telefono">
             </div> 
             
             <div class="col-12">
@@ -85,7 +85,7 @@ import RichText from '../components/core/RichText.astro';
 
             <div class="col-12">
                 <label for="messaggio" class="form-label">Messaggio</label>
-                <textarea class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="Lasciaci un messaggio" aria-label="Lasciaci un messaggio" name="messaggio"></textarea>
+                <textarea class="form-control rounded rounded-3 border-black border-opacity-25" placeholder="E lasciaci un messaggio!" aria-label="Lasciaci un messaggio" name="messaggio"></textarea>
             </div>
 
             <div class="col-12">
@@ -109,7 +109,7 @@ import RichText from '../components/core/RichText.astro';
                 
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary rounded rounded-2 text-uppercase fw-bold px-5 pulsante-contattaci">Invia</button>
+                <button type="submit" class="btn btn-primary rounded rounded-2 fw-bold px-5 pulsante-contattaci">Invia</button>
             </div>
 
             <div class="alert alert-success rounded rounded-1 text-center py-5 d-none" role="alert" id="alert-success">
