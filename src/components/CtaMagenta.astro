@@ -64,7 +64,7 @@ const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and 
 ---
 <section id="cta-magenta" class="py-5">
     <div class="container">
-        <div class="row gx-5">
+        <div class="row">
             
             {colonna !== null && colonna.map((counter: Counter, index: number) => (
             <div class="col-11 col-lg-6 text-white mx-auto py-3">
@@ -76,13 +76,13 @@ const colonna = ctaMain?.content[0].colonna || []; // Use optional chaining and 
                     <RichText block={counter.descrizione} />
                 }
 
-                <div class="row d-flex align-items-center">
+                <div class="col-10 col-md-12 mx-auto d-flex flex-column flex-md-row">
 
                 {counter.immagine !== null && counter.immagine.map((counter: Counter, index: number) => (
-                <div class="col">
+                <div class="col m-auto">
                     <Image 
                         src={logoUrl+counter.url} 
-                        class="img-fluid w-auto" 
+                        class="img-fluid mx-auto my-2 my-lg-0" 
                         alt={counter.alternativeText ? counter.alternativeText : ""} 
                         width={counter.width} 
                         height={counter.height} 
