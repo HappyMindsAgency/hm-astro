@@ -25,6 +25,10 @@ p {
     color: $body-color !important;
 }
 
+a {
+    transition: color .2s ease;
+}
+
 .fs-big {
     font-size: clamp(2rem, 1.525rem + 2.375vw, 4.375rem) !important;
 }
@@ -63,12 +67,12 @@ p {
 
 #text-and-foto {
     h4 {
-        font-size: clamp(1rem, 0.875rem + 0.625vw, 1.625rem);
+        font-size: $h4-font-size;
     }
 
-    p {
+    /* p {
         font-size: clamp(0.75rem, 0.7rem + 0.25vw, 1rem) !important;
-    }
+    } */
 }
 
 #slider-clienti {
@@ -122,6 +126,14 @@ p {
 
     p {
         color: white !important;
+    }
+
+    a {
+        color: white;
+    }
+
+    a:hover {
+        color: #a60048;
     }
 }
 
