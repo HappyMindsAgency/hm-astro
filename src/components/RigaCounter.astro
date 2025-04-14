@@ -21,7 +21,7 @@ const { pd } = Astro.props;
             <div class="row h-100 d-flex justify-content-between align-content-between">
             {pd.counter !== null && pd.counter.map((counter: Counter, index: number) => (
                 rand = Math.floor(Math.random() * 3) + 1,
-                <div class="col-12 col-md-6 counter-container text-md-start text-center py-3 py-lg-2">
+                <div class="col-12 col-md-6 counter-container text-lg-start text-center py-3 py-lg-2">
                     <h2 class="mb-0">
 
                         {counter.simbolo !== null && 
@@ -53,7 +53,14 @@ const { pd } = Astro.props;
         </div>
         <div class="col-10 col-lg-5 d-flex justify-content-center align-items-center pt-5 pt-lg-0">
             <Image 
-                class="m-auto w-75 w-md-50 w-lg-100 h-auto" 
+                class="m-auto w-50 h-auto d-none d-xl-block" 
+                src={`${import.meta.env.STRAPI_URL}${pd.immagine.url}`} 
+                alt={pd.immagine.alternativeText ? pd.immagine.alternativeText : pd.immagine.name} 
+                width={pd.immagine.width} 
+                height={pd.immagine.height}
+            />
+            <Image 
+                class="m-auto w-75 h-auto d-block d-xl-none" 
                 src={`${import.meta.env.STRAPI_URL}${pd.immagine.url}`} 
                 alt={pd.immagine.alternativeText ? pd.immagine.alternativeText : pd.immagine.name} 
                 width={pd.immagine.width} 
