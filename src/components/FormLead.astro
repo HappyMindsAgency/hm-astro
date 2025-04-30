@@ -178,13 +178,15 @@ import RichText from '../components/core/RichText.astro';
                     document.getElementById("alert-success").classList.add("d-none");
                 }, 5000);
     
-                // Testo dell'email con inserimento dinamico
+                // Testo dell'email con inserimento dinamico                
                 let textEmail = "Ciao "+data.nome+",\ngrazie per averci contattatɜ, siamo molto felici!\nPer ringraziarti del tuo interesse, a questo link: https://strapi.happyminds.it/uploads/portfolio_turistico_Happy_Minds_cc67922472.pdf trovi il nostro portfolio: potrai approfondire i nostri HappyProject e conoscere l'approccio e i servizi che abbiamo realizzato.\nTi ricontatteremo al più presto per fissare una call conoscitiva e rendere la tua destinazione ancora più felice 🦩\n\nA presto,\nil team di HappyMinds\n----\nQuesta è una email automatica, per qualsiasi cosa inviare un messaggio a hello@happyminds.it";
-    
+                let plainHtml = "<p>Ciao "+data.nome+",<br>grazie per averci contattatɜ, siamo molto felici!<br>Per ringraziarti del tuo interesse, <a href='https://strapi.happyminds.it/uploads/portfolio_turistico_Happy_Minds_cc67922472.pdf' target='_blank' title='Portfolio Happyminds'>a questo link trovi il nostro portfolio</a>: potrai approfondire i nostri HappyProject e conoscere l'approccio e i servizi che abbiamo realizzato.<br>Ti ricontatteremo al più presto per fissare una call conoscitiva e rendere la tua destinazione ancora più felice 🦩</p><p>A presto, <br>il team di HappyMinds</p><p>----<br>Questa è una email automatica, per qualsiasi cosa inviare un messaggio a <a href='mailto:hello@happyminds.it'>hello@happyminds.it</a></p>";
+
                 const emailData = {
                     email: data.email,
                     subject: "Grazie per il tuo interesse | HappyMinds",
-                    text: textEmail
+                    text: textEmail,
+                    plainHtml: plainHtml
                 };
     
                 try {

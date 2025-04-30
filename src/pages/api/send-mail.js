@@ -7,7 +7,7 @@ export async function POST({ request }) {
     try {   
         console.log('Invio email...');
         
-        const { email, subject, text } = await request.json();
+        const { email, subject, text, plainHtml } = await request.json();
 
         const smtpPort = parseInt(import.meta.env.SMTP_PORT);
         
@@ -50,6 +50,7 @@ export async function POST({ request }) {
             to: email,
             subject: subject,
             text: text,
+            html: plainHtml,
             bcc: ['hello@happyminds.it', 'assistenzaweb@happyminds.it'],
             replyTo: 'hello@happyminds.it',
         };
