@@ -8,13 +8,21 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-    vite: {
-      css: {
-        preprocessorOptions: {
-          scss: {
-            // Se hai delle variabili globali puoi aggiungere:
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          quietDeps: true,
+          logger: {
+            warn: function(message) {
+              // Suppress deprecation warnings
+              if (!message.includes('deprecated')) {
+                console.warn(message);
+              }
+            }
           }
         }
       }
     }
+  }
 });

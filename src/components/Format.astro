@@ -6,41 +6,37 @@ import { Image } from "astro:assets";
 import fetchApi from '../lib/strapi';
 
 // Define the interface for the pageData objectsContent[{ 
-interface Content {
-    progetti: { 
-        id: number,
-        titolo: string,
-        sottotitolo: string,
-        descrizione: string,
-        immagine: [{}],
-        ctaFormat: [{}],
-    } 
+interface Progetto {
+    id: number;
+    titolo: string;
+    sottotitolo: string;
+    descrizione: string;
+    immagine: any[];
+    ctaFormat: any[];
 };
+
+interface Content {
+    titolo: string;
+    descrizione: string;
+    progetti: Progetto[];
+};
+
 interface Format {
     content?: Content[];
 };
-interface Counter {
-    immagine: {
-        url: string;
-        alternativeText: string;
-        width: number;
-        height: number;
-    },
-    titolo: string,
-    sottotitolo: string,
-    descrizione: string,
-    url: string,
-    alternativeText: string,
-    width: number,
-    height: number,
-    ctaProgetto: [],
+
+interface ImageData {
+    url: string;
+    alternativeText: string;
+    width: number;
+    height: number;
 };
 
 /**
  * esempio link chiamata API
  * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
  */
-const format: Format[] = await fetchApi({
+const format = await fetchApi({
 	endpoint: `landing-pages/${landingID}`, 
 	page: '', 
 	wrappedByKey: 'data',
@@ -54,47 +50,50 @@ const format: Format[] = await fetchApi({
     secondLevelTarget: ['progetti.immagine', 'progetti.ctaProgetto'], 
 });
 
-//let riga = format.content[0];
-
 const logoUrl = import.meta.env.STRAPI_URL;
 
-const content = format?.content[0] || []; // Use optional chaining and a fallback to an empty array
-const progetti = format?.content[0].progetti || []; // Use optional chaining and a fallback to an empty array
+// Fix: Access the data correctly based on the actual structure
+const formatContent = format.content?.[0] || { titolo: '', descrizione: '', progetti: [] };
+const content = {
+    titolo: formatContent.titolo || '',
+    descrizione: formatContent.descrizione || '',
+};
+const progetti = formatContent.progetti || [];
 
-//console.log(content.descrizione);
+//console.log(format);
 ---
 
 <section id="format" class="py-5">
     <div class="container">
         <div class="row d-lg-flex justify-content-lg-center pb-5">
             <div class="col col-lg-9 text-center">
-                {content.titolo !== null && <h1 class="fw-bold text-uppercase">{content.titolo}</h1>}
-                {content.descrizione !== null && <RichText block={content.descrizione} />}
+                {content.titolo && <h1 class="fw-bold text-uppercase">{content.titolo}</h1>}
+                {content.descrizione && <RichText block={content.descrizione} />}
             </div>
         </div>
 
         <div class="row d-flex justify-content-center">
 
-            {progetti !== null && progetti.map((counter: Counter, index: number) => (
+            {progetti.length > 0 && progetti.map((counter: Progetto, index: number) => (
                 <div class="col-11 col-lg-4" id={`progetto-${index+1}`}>
                     <div class="img-container w-100 pb-4 pb-lg-2">
-                        {counter.immagine !== null && counter.immagine.map((counter: Counter, index: number) => (
+                        {counter.immagine && counter.immagine.length > 0 && counter.immagine.map((img: ImageData, imgIndex: number) => (
                         <Image 
-                            src={logoUrl+counter.url} 
+                            src={logoUrl+img.url} 
                             class="img-fluid rounded-4" 
-                            alt={counter.alternativeText ? counter.alternativeText : ""} 
-                            width={counter.width} 
-                            height={counter.height} 
+                            alt={img.alternativeText ? img.alternativeText : ""} 
+                            width={img.width} 
+                            height={img.height} 
                         />
                         ))}
                     </div>
                     <div class="content-container w-100 pb-5 mx-1">
-                        {counter.titolo !== null && <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>}
-                        {counter.sottotitolo !== null && <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>}
-                        {counter.descrizione !== null && <RichText block={counter.descrizione} />}
+                        {counter.titolo && <h3 class="fw-bold lh-1 text-uppercase">{counter.titolo}</h3>}
+                        {counter.sottotitolo && <p class="fs-small fw-bold text-primary">{counter.sottotitolo}</p>}
+                        {counter.descrizione && <RichText block={counter.descrizione} />}
 
-                        {counter.ctaProgetto !== null && 
-                            <LinkPulsante param={counter.ctaProgetto} />
+                        {counter.ctaFormat && counter.ctaFormat.length > 0 && 
+                            <LinkPulsante param={counter.ctaFormat} />
                         }
 
                     </div>
@@ -107,7 +106,7 @@ const progetti = format?.content[0].progetti || []; // Use optional chaining and
 
             <div class="col-11 col-lg-4 text-center pt-5">
 
-                {pd.ctaFormat !== null && 
+                {pd.ctaFormat && 
                     <LinkPulsante param={pd.ctaFormat} />
                 }
 

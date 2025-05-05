@@ -198,7 +198,9 @@ import RichText from '../components/core/RichText.astro';
                         body: JSON.stringify(emailData)
                     });
     
-                    const emailResult = await emailResponse.json();
+                    //const emailResult = await emailResponse.json();
+                    await emailResponse.json();
+                    window.location.href = '/thankyou-page';
                     // console.log("Email Result ->", emailResult);
                 } catch (error) {
                     console.error("Errore nell'invio della mail", error);

@@ -5,73 +5,60 @@ import fetchApi from '../lib/strapi';
 import { Image } from "astro:assets";
 
 // Define the interface for the pageData objectsContent[{ 
-interface Content {
-    cliente: { 
-        id: number,
-        nome: string,
-        logo: {
-            id: number,
-            documentId: string,
-            name: string,
-            alternativeText: string,
-            caption: string,
-            width: number,
-            height: number,
-            formats: {
-                thumbnail: {
-                    url: string,
-                    width: number,
-                    height: number,
-                }
-            },
-            url: string,
-            hash: string,
-            ext: string,
-            mime: string,
-            size: number,
-            previewUrl: string,
-            provider: string,
-            provider_metadata: string,
-            createdAt: string,
-            updatedAt: string,
-            publishedAt: string
-        }, 
-        link: {
-            id: number,
-            testoLink: string,
-            link: string,
-            title: string,
-            class: string,
-            targetBlank: boolean,
-        } 
-    } 
-};
-interface ClienteData {
-    content: Content[];
-};
-interface Counter {
-    link: {
-        link: string;
-        class: string;
-        title: string;
-        targetBlank: boolean;
-    };
+interface Cliente {
+    id: number;
+    nome: string;
     logo: {
-        url: string;
+        id: number;
+        documentId: string;
+        name: string;
         alternativeText: string;
+        caption: string;
         width: number;
         height: number;
+        formats: {
+            thumbnail: {
+                url: string;
+                width: number;
+                height: number;
+            }
+        };
+        url: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        size: number;
+        previewUrl: string;
+        provider: string;
+        provider_metadata: string;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
     };
+    link: {
+        id: number;
+        testoLink: string;
+        link: string;
+        title: string;
+        class: string;
+        targetBlank: boolean;
+    };
+}
+
+interface Content {
     id: number;
-    cliente: Counter[];
-    // Add other properties as needed
+    cliente: Cliente[];
+};
+
+interface ClienteData {
+    content: Content[];
 };
 
 /**
  * esempio link chiamata API
  * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
  */
-const clienteData: ClienteData[] = await fetchApi({
+const clienteData = await fetchApi({
 
     // sostituire ID statico con ID dinamico passato con props in caso di più landing pages
 	endpoint: `landing-pages/${landingID}`, 
@@ -108,9 +95,11 @@ const clienteData: ClienteData[] = await fetchApi({
     secondLevelTarget: ['cliente.logo', 'cliente.link'], 
 });
 
-let clienti = clienteData.content;
+let clienti = clienteData.content || [];
 
 const logoUrl = import.meta.env.STRAPI_URL;
+
+//console.log(clienteData.content[0]);
 ---
 <script type="module">
     import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
@@ -158,21 +147,17 @@ const logoUrl = import.meta.env.STRAPI_URL;
                 <div class="swiper clientiSwiper pb-5">
                     <div class="swiper-wrapper">
 
-                        {clienti !== null && clienti.map((counter: Counter) => (
-
-                            counter.id !== null && counter.id === pd.id && counter.cliente !== null && counter.cliente.map((cliente: Counter, index: number) => (
-
+                        {clienti !== null && clienti.map((content: Content) => (
+                            content.id !== null && content.id === pd.id && content.cliente !== null && content.cliente.map((cliente: Cliente, index: number) => (
                                 <div class="swiper-slide" id={`swiper-slide logo-${index+1}`}>
 
                                     {cliente.link !== null ? (
-
                                         <a 
                                             href={cliente.link.link ? cliente.link.link : ''} 
                                             class={cliente.link.class ? cliente.link.class : ''} 
                                             title={cliente.link.title ? cliente.link.title : ''} 
                                             target={cliente.link.targetBlank ? '_blank' : ''}
                                         >
-
                                         {cliente.logo !== null && 
                                             <Image 
                                                 src={logoUrl+cliente.logo.url} 
@@ -182,11 +167,8 @@ const logoUrl = import.meta.env.STRAPI_URL;
                                                 height={cliente.logo.height} 
                                             />
                                         }
-
                                         </a>
-
                                     ) : (
-
                                         cliente.logo !== null && 
                                         <Image 
                                             src={logoUrl+cliente.logo.url} 
@@ -195,9 +177,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
                                             width={cliente.logo.width} 
                                             height={cliente.logo.height} 
                                         />
-                                        
                                     )}
-
                                 </div>
                             ))
                         ))}

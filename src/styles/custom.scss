@@ -1,21 +1,64 @@
 // custom.scss
-$primary: #d0005a; // Nuovo colore primario
-$hm-light-gray: #4d4d4d;
-$font-poppins: 'Poppins', sans-serif; // Nuovo font
-$font-barlow: 'Barlow Condensed', sans-serif;
-$border-radius: 50rem; // Nuovo raggio di bordo
+@use "sass:color";
+@use "sass:math";
 
+// Define custom variables
+$primary: #d0005a;
+$hm-light-gray: #4d4d4d;
+$font-poppins: 'Poppins', sans-serif;
+$font-barlow: 'Barlow Condensed', sans-serif;
+$border-radius: 50rem;
 $h1-font-size: clamp(2.25rem, 1.7rem + 2.75vw, 5rem);
 $h2-font-size: clamp(2rem, 1.65rem + 1.75vw, 3.75rem);
 $h3-font-size: clamp(1.75rem, 1.5rem + 1.25vw, 3rem);
 $h4-font-size: clamp(1.25rem, 1.125rem + 0.75vw, 2rem);
+$body-color: $hm-light-gray;
 
-$body-color: $hm-light-gray; // Nuovo colore del testo
+// Import Bootstrap
+@use "bootstrap/scss/bootstrap" with (
+  $primary: $primary,
+  $body-color: $body-color,
+  $border-radius: $border-radius,
+  $h1-font-size: $h1-font-size,
+  $h2-font-size: $h2-font-size,
+  $h3-font-size: $h3-font-size,
+  $h4-font-size: $h4-font-size
+);
 
-// Importa il Bootstrap dopo la personalizzazione
-@import "bootstrap/scss/bootstrap.scss";
+// Navbar shrinking styles
+#navbarHM, #navbarHMmobile {
+  transition: all 0.3s ease;
+  
+  &.shrunk {
+    .navbar {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    
+    .navbar-brand img {
+      max-height: 40px;
+      width: auto;
+    }
+  }
+  
+  .navbar-brand img {
+    max-height: 60px;
+    width: auto;
+    transition: all 0.3s ease;
+  }
+}
 
+// Add these styles to ensure the navbar shrinks properly
+#navbarHM .navbar, #navbarHMmobile .navbar {
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+}
 
+#navbarHM.shrunk .navbar, #navbarHMmobile.shrunk .navbar {
+  padding: 0.5rem 0;
+}
+
+// Custom styles
 body {
     font-family: $font-poppins;
     color: $body-color;

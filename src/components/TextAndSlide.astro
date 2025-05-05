@@ -1,5 +1,4 @@
 ---
-import { onMount } from "astro/client";
 import RichText from '../components/core/RichText.astro';
 const { pd, landingID } = Astro.props;
 import { Image } from "astro:assets";
@@ -42,7 +41,7 @@ interface Counter {
  * esempio link chiamata API
  * http://localhost:1337/api/landing-pages/yd9u9u9k5wtvej3e8sv0uf3h?populate[content][on][shared.slider-clienti][populate]=cliente.logo&populate[content][on][shared.slider-clienti][populate]=cliente.link
  */
-const textSlide: TextSlide[] = await fetchApi({
+const textSlide = await fetchApi({
 
     // sostituire ID statico con ID dinamico passato con props in caso di più landing pages
 	endpoint: `landing-pages/${landingID}`, 
@@ -79,12 +78,15 @@ const textSlide: TextSlide[] = await fetchApi({
     secondLevelTarget: 'riga.slider', 
 });
 
-let riga = textSlide.content[0];
-let cont = riga.riga.length;
+//console.log("TextAndSlide API response:", textSlide);
+
+// Fix: Access the data correctly based on the actual structure
+const riga = textSlide.content?.[0] || { riga: [] };
+const cont = riga.riga?.length || 0;
 
 const logoUrl = import.meta.env.STRAPI_URL;
 
-//console.log(riga.riga.length);
+//console.log(textSlide);
 ---
 
 <section id="text-and-foto" class="py-3 py-lg-5">
@@ -92,7 +94,6 @@ const logoUrl = import.meta.env.STRAPI_URL;
 
         {riga.riga && riga.riga.map((counter: Counter, index: number) => (
             <div 
-                key={`slide-${index}`}
                 class={counter.reverseColumn ? 'row d-flex flex-row-reverse justify-content-center' : 'row d-flex justify-content-center'} 
                 id={`text-and-slide-${index}`} 
             >
@@ -125,7 +126,7 @@ const logoUrl = import.meta.env.STRAPI_URL;
                     <div class={`swiper mySwiperTextSlide-${index+1} identifier`}>
                         <div class="swiper-wrapper">
                             {counter.slider && Array.isArray(counter.slider) && counter.slider.map((riga: Counter, i: number) => (
-                            <div class="swiper-slide" key={`slide-img-${i}`}>
+                            <div class="swiper-slide">
                                 <Image 
                                 src={logoUrl + riga.url} 
                                 class="img-fluid rounded-4" 

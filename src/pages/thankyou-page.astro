@@ -1,0 +1,61 @@
+---
+import fetchApi from '../lib/strapi';
+import Head from '../layouts/Head.astro';
+import { Image } from "astro:assets";
+	
+/**
+ * Importazione regole di stile
+ */
+import '../styles/fonts.css';
+import '../styles/global.css';
+import "../styles/custom.scss";
+
+// Define the interface for the pageData objects
+interface PageData {
+    __component: string;
+    // Add other properties as needed
+}
+
+//http://localhost:1337/api/landing-pages?populate[content][populate]=*
+const pageData: PageData[] = await fetchApi({
+	endpoint: 'landing-pages',
+	page: 'content',
+	wrappedByKey: 'data',
+    query: {}, // Provide an empty object or appropriate query parameters
+    wrappedByList: false, // Provide a default value
+    locale: '', // Provide a default locale
+    secondLevel: '',
+    secondLevelQuery: '',
+    secondLevelTarget: '',
+});
+
+const landingID = import.meta.env.LANDING_ID;
+const sitoUrl = import.meta.env.STRAPI_URL;
+---
+
+<Head {landingID} />
+
+<body class="">
+    <main class="container-fluid d-flex align-items-center justify-content-center vh-100 text-center bg-light">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                
+                <h1 class="fs-2 fw-bold text-primary mb-4">Grazie, la tua richiesta è stata inoltrata!
+                </h1>
+                <div class="col-12 col-md-6 mx-auto my-4">
+                    <img class="img-fluid" src={`${sitoUrl}/uploads/flamingo_con_festoni_29b5b55694.png`} style="transform: rotate(180deg);">
+                </div>
+                
+                <p>Controlla la tua casella di posta, ti abbiamo mandato il nostro portfolio: potrai approfondire i nostri HappyProject e conoscere l'approccio e i servizi che abbiamo realizzato!</p>
+
+                <p>Ti ricontatteremo al più presto per fissare una call conoscitiva e rendere la tua destinazione ancora più felice!</p>
+
+                <p>A presto,<br>Il team di HappyMinds</p>
+
+                <a href="/" class="btn btn-cta btn-primary" style="font-family: 'Barlow Condensed', sans-serif;">
+                    Torna alla Home
+                </a>
+            </div>
+        </div>
+    </main>
+</body>

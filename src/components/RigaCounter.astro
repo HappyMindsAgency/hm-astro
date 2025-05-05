@@ -1,52 +1,55 @@
 ---
+import RichText from '../components/core/RichText.astro';
+const { pd, landingID } = Astro.props;
 import { Image } from "astro:assets";
 
-interface Counter {
-    numero: number;
+// Define the interface for the counter items
+interface CounterItem {
+    id: number;
     titolo: string;
+    numero: number;
     sottotitolo: string;
-    simbolo: string;
+    simbolo: string | null;
 }
 
-let rand = 0;
-const { pd } = Astro.props;
+// Use pd props instead of fetching from API
+//console.log("RigaCounter pd props:", pd);
 
-//console.log(pd);
+// Check if pd has the expected structure
+const hasCounter = pd && pd.counter && Array.isArray(pd.counter) && pd.counter.length > 0;
+const hasImage = pd && pd.immagine;
+
+const logoUrl = import.meta.env.STRAPI_URL;
 ---
 
 <div class="col-12 container-fluid riga-counter">
-    {pd.immagine !== null ? (
+    {hasImage ? (
     <div class="row p-4 d-flex flex-row-reverse justify-content-center">
         <div class="col-12 col-lg-7">
             <div class="row h-100 d-flex justify-content-between align-content-between">
-            {pd.counter !== null && pd.counter.map((counter: Counter, index: number) => (
-                rand = Math.floor(Math.random() * 3) + 1,
+            {hasCounter && pd.counter.map((counter: CounterItem, index: number) => (
                 <div class="col-12 col-md-6 counter-container text-lg-start text-center py-3 py-lg-2">
                     <h2 class="mb-0">
-
-                        {counter.simbolo !== null && 
+                        {counter.simbolo && 
                         <span class="me-1">{counter.simbolo}</span>
                         }
-
-                        {counter.numero !== null && 
+                        {counter.numero && 
                         <span 
                             id={`counter-${index}`} 
                             class="count-up"
                             data-target={counter.numero} 
-                            data-duration={rand * 1000}
+                            data-duration={Math.floor(Math.random() * 3 + 1) * 1000}
                         >0</span>
                         }
-
                     </h2>
                     
-                    {counter.titolo !== null && 
+                    {counter.titolo && 
                     <p class="mb-0 titolo">{counter.titolo}</p>
                     }
 
-                    {counter.sottotitolo !== null && 
+                    {counter.sottotitolo && 
                     <p class="mb-0 sottotitolo">{counter.sottotitolo}</p>
                     }
-
                 </div>
             ))}
             </div>
@@ -54,14 +57,14 @@ const { pd } = Astro.props;
         <div class="col-10 col-lg-5 d-flex justify-content-center align-items-center pt-5 pt-lg-0">
             <Image 
                 class="m-auto w-50 h-auto d-none d-xl-block" 
-                src={`${import.meta.env.STRAPI_URL}${pd.immagine.url}`} 
+                src={logoUrl + pd.immagine.url} 
                 alt={pd.immagine.alternativeText ? pd.immagine.alternativeText : pd.immagine.name} 
                 width={pd.immagine.width} 
                 height={pd.immagine.height}
             />
             <Image 
                 class="m-auto w-75 h-auto d-block d-xl-none" 
-                src={`${import.meta.env.STRAPI_URL}${pd.immagine.url}`} 
+                src={logoUrl + pd.immagine.url} 
                 alt={pd.immagine.alternativeText ? pd.immagine.alternativeText : pd.immagine.name} 
                 width={pd.immagine.width} 
                 height={pd.immagine.height}
@@ -72,34 +75,29 @@ const { pd } = Astro.props;
     <div class="row p-4">
         <div class="col-12">
             <div class="row">
-            {pd.counter !== null && pd.counter.map((counter: Counter, index: number) => (
-                rand = Math.floor(Math.random() * 3) + 1,
+            {hasCounter && pd.counter.map((counter: CounterItem, index: number) => (
                 <div class="col-6 counter-container">
                     <h2 class="mb-0">
-
-                        {counter.simbolo !== null && 
+                        {counter.simbolo && 
                         <span class="me-1">{counter.simbolo}</span>
                         }
-
-                        {counter.numero !== null && 
+                        {counter.numero && 
                         <span 
                             id={`counter-${index}`} 
                             class="count-up"
                             data-target={counter.numero} 
-                            data-duration={rand * 1000}
+                            data-duration={Math.floor(Math.random() * 3 + 1) * 1000}
                         >0</span>
                         }
-
                     </h2>
                     
-                    {counter.titolo !== null && 
+                    {counter.titolo && 
                     <p class="mb-0 titolo">{counter.titolo}</p>
                     }
 
-                    {counter.sottotitolo !== null && 
+                    {counter.sottotitolo && 
                     <p class="mb-0 sottotitolo">{counter.sottotitolo}</p>
                     }
-
                 </div>
             ))}
             </div>
@@ -108,7 +106,7 @@ const { pd } = Astro.props;
     )}
 </div>
 
-<script is:inline>
+<script>
     document.addEventListener("DOMContentLoaded", () => {
         const counters = document.querySelectorAll(".count-up");
 
