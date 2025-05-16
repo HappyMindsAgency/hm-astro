@@ -149,7 +149,10 @@ codeData.content.map((cd) => (
 ---
 
 <head>
-    {code[0].head && <Fragment set:html={code[0]?.head} />}
+    {code[0] &&
+    code.map((cd) => (
+    <Fragment set:html={code[0]?.head} />
+    ))}
 
     <SEO 
         title={seo ? seo.metaTitle : ''}
