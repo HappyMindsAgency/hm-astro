@@ -149,9 +149,9 @@ codeData.content.map((cd) => (
 ---
 
 <head>
-    {code[0] &&
+    {code[0] && code[0].head &&
     code.map((cd) => (
-    <Fragment set:html={code[0]?.head} />
+    <Fragment set:html={cd.head} />
     ))}
 
     <SEO 
