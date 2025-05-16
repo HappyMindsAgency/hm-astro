@@ -158,8 +158,8 @@ codeData.content.map((cd) => (
         title={seo ? seo.metaTitle : ''}
         titleDefault="Destination Marketing | HappyMinds"
         description={seo ? seo.metaDescription : ''}
-        noindex={seo ? (seo.metaRobots.includes('noindex') ? true : false) : false}
-        nofollow={seo ? (seo.metaRobots.includes('nofollow') ? true : false) : false}
+        noindex={seo ? ( seo.metaRobots ? ( seo.metaRobots.includes('noindex') ? true : false ) : false ) : false}
+        nofollow={seo ? ( seo.metaRobots ? ( seo.metaRobots.includes('nofollow') ? true : false ) : false ) : false}
         openGraph={{
         basic: {
             title: metaSocialGeneric ? metaSocialGeneric.title : '',
