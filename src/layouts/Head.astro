@@ -149,10 +149,6 @@ codeData.content.map((cd) => (
 ---
 
 <head>
-    {code[0] && code[0].head &&
-    code.map((cd) => (
-    <Fragment set:html={cd.head} />
-    ))}
 
     <SEO 
         title={seo ? seo.metaTitle : ''}
@@ -193,5 +189,9 @@ codeData.content.map((cd) => (
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
+    {code[0] && code[0].head &&
+    code.map((cd) => (
+    <Fragment set:html={cd.head} />
+    ))}
     
 </head>
