@@ -1,9 +1,11 @@
 ---
 const { pd } = Astro.props;
+
+console.log(pd);
 ---
 
-{pd.code !== null && 
+{pd.body !== null && 
 <section id="codice">
-    <div class={pd.titolo ? pd.titolo : ''} set:html={pd.Code}></div>
+    <div set:html={pd.body}></div>
 </section>
 }
