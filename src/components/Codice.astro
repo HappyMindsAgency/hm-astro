@@ -5,7 +5,7 @@ console.log(pd);
 ---
 
 {pd.body !== null && 
-<section id="codice">
+<section id={`codice_${pd.id}`}>
     <div set:html={pd.body}></div>
 </section>
 }
